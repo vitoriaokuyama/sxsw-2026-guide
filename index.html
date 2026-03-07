@@ -647,12 +647,9 @@ function buildCatFilters() {
     btn.style.color = style.fg;
     btn.dataset.cat = cat;
     btn.onclick = () => {
-      if (activeCats.size === 1 && activeCats.has(cat)) {
-        // clicking the only active one → back to all
-        activeCats.clear();
+      if (activeCats.has(cat)) {
+        activeCats.delete(cat);
       } else {
-        // select only this one
-        activeCats.clear();
         activeCats.add(cat);
       }
       updateCatButtons();
@@ -669,7 +666,7 @@ function updateCatButtons() {
       // "All" button
       btn.classList.toggle('active', noFilter);
     } else {
-      btn.classList.toggle('active', noFilter || activeCats.has(btn.dataset.cat));
+      btn.classList.toggle('active', activeCats.has(btn.dataset.cat));
     }
   });
 }
