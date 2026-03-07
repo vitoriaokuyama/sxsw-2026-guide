@@ -183,6 +183,18 @@ body {
   flex-wrap: wrap;
 }
 
+@media (max-width: 640px) {
+  .cat-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .cat-filters::-webkit-scrollbar { display: none; }
+  .cat-btn { white-space: nowrap; flex-shrink: 0; }
+}
+
 .cat-btn {
   padding: 6px 14px;
   border: 2px solid;
@@ -625,6 +637,22 @@ function updateDayButtons() {
   });
 }
 
+const CAT_SHORT = {
+  'Startups & VC': 'Startups',
+  'AI & Emerging Tech': 'AI & Tech',
+  'Creator Economy': 'Creator',
+  'Music & Nightlife': 'Music',
+  'Film, Media & Journalism': 'Film & Media',
+  'Networking & Happy Hours': 'Networking',
+  'Exercise & Fitness': 'Fitness',
+  'Wellness & Healthtech': 'Wellness',
+  'Food, Drink & Culinary': 'Food & Drink',
+  'International & Country Houses': 'International',
+  'Art, Culture & Community': 'Art & Culture',
+  'Women, DEI & Social Impact': 'Women & DEI',
+};
+const isMobile = () => window.innerWidth <= 640;
+
 function buildCatFilters() {
   const container = document.getElementById('catFilters');
   const cats = Object.keys(CAT_STYLES);
@@ -632,7 +660,7 @@ function buildCatFilters() {
   // "All" button
   const allBtn = document.createElement('button');
   allBtn.className = 'cat-btn active';
-  allBtn.textContent = `All (${EVENTS.length})`;
+  allBtn.textContent = 'All';
   allBtn.style.background = '#333';
   allBtn.style.borderColor = '#666';
   allBtn.style.color = '#fff';
@@ -648,7 +676,8 @@ function buildCatFilters() {
     const style = CAT_STYLES[cat];
     const btn = document.createElement('button');
     btn.className = 'cat-btn';
-    btn.textContent = `${cat} (${count})`;
+    const label = isMobile() ? CAT_SHORT[cat] || cat : cat;
+    btn.textContent = `${label} (${count})`;
     btn.style.background = style.bg;
     btn.style.borderColor = style.fg + '40';
     btn.style.color = style.fg;
