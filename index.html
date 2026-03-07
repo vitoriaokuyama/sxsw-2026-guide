@@ -155,6 +155,8 @@ body {
   font-family: inherit;
   cursor: pointer;
   transition: all 0.15s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .day-btn:hover {
@@ -191,6 +193,9 @@ body {
   cursor: pointer;
   transition: all 0.15s;
   opacity: 0.4;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .cat-btn:hover { opacity: 0.75; }
@@ -341,6 +346,8 @@ body {
   cursor: pointer;
   transition: all 0.15s;
   color: var(--text-muted);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .cost-btn:hover { color: var(--text); border-color: var(--accent); }
