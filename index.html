@@ -397,6 +397,26 @@ body {
   font-weight: 700;
 }
 
+.card-share {
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.15s;
+  padding: 4px 14px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card-share:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* ─── Share bar ───────────────────────────────────────── */
 .share-bar {
   max-width: 1200px;
@@ -800,7 +820,7 @@ function render() {
     return `<div class="card">
       <div class="card-top-row">
         <span class="card-badge" style="background:${style.bg};color:${style.fg};border:1px solid ${style.border || style.bg}">${esc(e.c)}</span>
-        <button class="card-save ${isSaved ? 'saved' : ''}" onclick="toggleSave('${eid}', this)">${isSaved ? 'Saved &#10084;' : 'Save &#9825;'}</button>
+        <span style="display:flex;gap:6px"><button class="card-share" onclick="shareEvent('${eid}')">Share</button><button class="card-save ${isSaved ? 'saved' : ''}" onclick="toggleSave('${eid}', this)">${isSaved ? 'Saved &#10084;' : 'Save &#9825;'}</button></span>
       </div>
       <div class="card-header">
         <div class="card-title">${esc(e.n)}</div>
@@ -846,6 +866,21 @@ function toggleSavedFilter() {
   showSavedOnly = !showSavedOnly;
   document.getElementById('savedToggle').classList.toggle('active', showSavedOnly);
   render();
+}
+
+function shareEvent(eid) {
+  const e = EVENTS.find(ev => getEventId(ev) === eid);
+  if (!e) return;
+  const text = `${e.n}\n${e.d}${e.t ? ' · ' + e.t : ''}${e.l ? '\n' + e.l : ''}${e.u ? '\n' + e.u : ''}`;
+  if (navigator.share) {
+    navigator.share({ title: e.n, text: text, url: e.u || '' }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Event details copied!');
+    }).catch(() => {
+      showToast('Could not copy');
+    });
+  }
 }
 
 function shareMyPicks() {
