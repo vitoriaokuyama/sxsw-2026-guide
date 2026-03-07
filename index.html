@@ -184,15 +184,8 @@ body {
 }
 
 @media (max-width: 640px) {
-  .cat-filters {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 4px;
-  }
-  .cat-filters::-webkit-scrollbar { display: none; }
-  .cat-btn { white-space: nowrap; flex-shrink: 0; }
+  .cat-filters { gap: 4px; }
+  .cat-btn { padding: 4px 8px; font-size: 0.65rem; border-width: 1.5px; }
 }
 
 .cat-btn {
@@ -676,8 +669,9 @@ function buildCatFilters() {
     const style = CAT_STYLES[cat];
     const btn = document.createElement('button');
     btn.className = 'cat-btn';
-    const label = isMobile() ? CAT_SHORT[cat] || cat : cat;
-    btn.textContent = `${label} (${count})`;
+    const mobile = isMobile();
+    const label = mobile ? CAT_SHORT[cat] || cat : cat;
+    btn.textContent = mobile ? label : `${label} (${count})`;
     btn.style.background = style.bg;
     btn.style.borderColor = style.fg + '40';
     btn.style.color = style.fg;
