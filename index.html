@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SXSW 2026 Unofficial Event Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --surface2: #141414;
+  --border: #202020;
+  --text: #e2e2e2;
+  --text-muted: #777777;
+  --accent: #D6FD3A;
+  --accent-dark: #b8e02e;
+  --accent-glow: rgba(214, 253, 58, 0.1);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Hero ─────────────────────────────────────────────── */
+.hero {
+  background: #000;
+  padding: 60px 24px 48px;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.hero h1 span {
+  color: var(--accent);
+}
+
+.hero .subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.hero .stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 32px;
+}
+
+.hero .stat {
+  text-align: center;
+}
+
+.hero .stat-num {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.hero .stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ─── Search ───────────────────────────────────────────── */
+.search-wrap {
+  max-width: 600px;
+  margin: 24px auto 0;
+  padding: 0 24px;
+  position: relative;
+  z-index: 10;
+}
+
+.search-input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 9999px;
+  color: var(--text);
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.search-icon {
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+/* ─── Filters ──────────────────────────────────────────── */
+.filters {
+  max-width: 1200px;
+  margin: 32px auto 0;
+  padding: 0 24px;
+}
+
+.filter-section {
+  margin-bottom: 16px;
+}
+
+.filter-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.day-filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.day-btn {
+  padding: 8px 16px;
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 9999px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.day-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.day-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  font-weight: 700;
+}
+
+.day-btn .count {
+  font-size: 0.7rem;
+  opacity: 0.6;
+  margin-left: 4px;
+}
+
+.cat-filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cat-btn {
+  padding: 6px 14px;
+  border: 2px solid;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+  opacity: 0.4;
+}
+
+.cat-btn:hover { opacity: 0.75; }
+
+.cat-btn.active {
+  opacity: 1;
+}
+
+/* ─── Results info ─────────────────────────────────────── */
+.results-info {
+  max-width: 1200px;
+  margin: 24px auto 8px;
+  padding: 0 24px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.results-info span {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ─── Event Grid ───────────────────────────────────────── */
+.grid {
+  max-width: 1200px;
+  margin: 16px auto;
+  padding: 0 24px 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.15s, border-color 0.15s;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fff;
+  flex: 1;
+}
+
+.card-badge {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.card-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.card-meta-icon {
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.card-desc {
+  font-size: 0.82rem;
+  color: #7a7a90;
+  line-height: 1.5;
+  flex: 1;
+  margin-bottom: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.card-free {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.cost-free {
+  background: rgba(214, 253, 58, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(214, 253, 58, 0.25);
+}
+
+.cost-paid {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.cost-filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cost-btn {
+  padding: 6px 14px;
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text-muted);
+}
+
+.cost-btn:hover { color: var(--text); border-color: var(--accent); }
+
+.cost-btn.active {
+  color: #000;
+  border-color: var(--accent);
+  background: var(--accent);
+  font-weight: 700;
+}
+
+/* ─── Top row (category + heart) ──────────────────────── */
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.card-save {
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.15s;
+  padding: 4px 14px;
+}
+
+.card-save:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.card-save.saved {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  font-weight: 700;
+}
+
+/* ─── Share bar ───────────────────────────────────────── */
+.share-bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.saved-toggle {
+  padding: 8px 20px;
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 9999px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.saved-toggle:hover { border-color: var(--accent); color: var(--text); }
+
+.saved-toggle.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  font-weight: 700;
+}
+
+.share-btn {
+  padding: 8px 20px;
+  background: #fff;
+  border: none;
+  border-radius: 9999px;
+  color: #000;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.share-btn:hover {
+  background: var(--accent);
+  transform: scale(1.03);
+}
+
+.share-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--accent);
+  color: #000;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+
+.share-toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+.card-rsvp {
+  padding: 8px 20px;
+  background: var(--accent);
+  color: #000;
+  text-decoration: none;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.card-rsvp:hover {
+  background: var(--accent-dark);
+  transform: scale(1.03);
+}
+
+/* ─── Empty state ──────────────────────────────────────── */
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.empty-icon { font-size: 3rem; margin-bottom: 12px; }
+.empty-text { font-size: 1.1rem; font-weight: 600; }
+
+/* ─── Responsive ───────────────────────────────────────── */
+@media (max-width: 640px) {
+  .hero { padding: 40px 16px 32px; }
+  .hero .stats { gap: 20px; }
+  .grid { grid-template-columns: 1fr; padding: 0 16px 40px; }
+  .search-wrap { padding: 0 16px; }
+  .filters { padding: 0 16px; }
+  .day-btn { padding: 6px 10px; font-size: 0.75rem; }
+}
+
+/* ─── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #2a2a35; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a45; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>SXSW <span>2026</span></h1>
+  <p class="subtitle">Unofficial Event Guide &middot; Austin, TX</p>
+</div>
+
+<div class="search-wrap">
+  <span class="search-icon">&#128269;</span>
+  <input class="search-input" type="text" placeholder="Search events, venues, topics..." id="search">
+</div>
+
+<div class="filters">
+  <div class="filter-section">
+    <div class="filter-label">Filter by Day</div>
+    <div class="day-filters" id="dayFilters"></div>
+  </div>
+  <div class="filter-section">
+    <div class="filter-label">Filter by Category</div>
+    <div class="cat-filters" id="catFilters"></div>
+  </div>
+  <div class="filter-section">
+    <div class="filter-label">Filter by Cost</div>
+    <div class="cost-filters" id="costFilters"></div>
+  </div>
+</div>
+
+<div class="share-bar">
+  <button class="saved-toggle" id="savedToggle" onclick="toggleSavedFilter()">&#10084; Saved <span id="savedCount">(0)</span></button>
+  <button class="share-btn" id="shareBtn" onclick="shareMyPicks()">Share my picks</button>
+</div>
+
+<div class="results-info" id="resultsInfo"></div>
+<div class="share-toast" id="toast"></div>
+<div class="grid" id="grid"></div>
+
+<script>
+const CAT_STYLES = {
+  'Startups & VC':              { bg: '#0d1f14', fg: '#6EE7B7', border: '#1a3d28' },
+  'AI & Emerging Tech':         { bg: '#0c1929', fg: '#7dd3fc', border: '#163352' },
+  'Creator Economy':            { bg: '#1a0d2e', fg: '#c4b5fd', border: '#2d1a4e' },
+  'Music & Nightlife':          { bg: '#1f0d0d', fg: '#fca5a5', border: '#3d1a1a' },
+  'Film, Media & Journalism':   { bg: '#1f1208', fg: '#fdba74', border: '#3d2410' },
+  'Networking & Happy Hours':   { bg: '#0d1520', fg: '#93c5fd', border: '#1a2a40' },
+  'Exercise & Fitness':         { bg: '#041f16', fg: '#a7f3d0', border: '#083d2c' },
+  'Wellness & Healthtech':      { bg: '#0a1f10', fg: '#86efac', border: '#143d20' },
+  'Food, Drink & Culinary':     { bg: '#1f0d16', fg: '#f9a8d4', border: '#3d1a2c' },
+  'International & Country Houses': { bg: '#141414', fg: '#d1d5db', border: '#282828' },
+  'Art, Culture & Community':   { bg: '#1f1508', fg: '#fde68a', border: '#3d2a10' },
+  'Women, DEI & Social Impact': { bg: '#1a0d22', fg: '#e9a8fc', border: '#331a44' },
+};
+
+const DAYS = [
+  { key: 'Tue Mar 10', label: 'Tue 10', full: 'Tuesday March 10' },
+  { key: 'Wed Mar 11', label: 'Wed 11', full: 'Wednesday March 11' },
+  { key: 'Thu Mar 12', label: 'Thu 12', full: 'Thursday March 12' },
+  { key: 'Fri Mar 13', label: 'Fri 13', full: 'Friday March 13' },
+  { key: 'Sat Mar 14', label: 'Sat 14', full: 'Saturday March 14' },
+  { key: 'Sun Mar 15', label: 'Sun 15', full: 'Sunday March 15' },
+  { key: 'Mon Mar 16', label: 'Mon 16', full: 'Monday March 16' },
+  { key: 'Tue Mar 17', label: 'Tue 17', full: 'Tuesday March 17' },
+  { key: 'Wed Mar 18', label: 'Wed 18', full: 'Wednesday March 18' },
+];
+
+let EVENTS = [];
+let activeDay = null;
+let activeCats = new Set();
+let activeCost = null;
+let searchQuery = '';
+let showSavedOnly = false;
+let savedEvents = new Set(JSON.parse(localStorage.getItem('sxsw_saved') || '[]'));
+
+// ─── Load data ──────────────────────────────────────────
+function init(data) {
+  EVENTS = data;
+  const tc = document.getElementById('totalCount'); if (tc) tc.textContent = EVENTS.length;
+  buildDayFilters();
+  buildCatFilters();
+  buildCostFilters();
+  loadSharedPicks();
+  updateSavedCount();
+  render();
+}
+
+function buildDayFilters() {
+  const container = document.getElementById('dayFilters');
+  // All button
+  const allBtn = document.createElement('button');
+  allBtn.className = 'day-btn active';
+  allBtn.innerHTML = `All`;
+  allBtn.onclick = () => { activeDay = null; updateDayButtons(); render(); };
+  container.appendChild(allBtn);
+
+  DAYS.forEach(day => {
+    const count = EVENTS.filter(e => e.d === day.key).length;
+    if (count === 0) return;
+    const btn = document.createElement('button');
+    btn.className = 'day-btn';
+    btn.innerHTML = `${day.label}<span class="count">${count}</span>`;
+    btn.dataset.day = day.key;
+    btn.onclick = () => {
+      activeDay = activeDay === day.key ? null : day.key;
+      updateDayButtons();
+      render();
+    };
+    container.appendChild(btn);
+  });
+}
+
+function updateDayButtons() {
+  document.querySelectorAll('.day-btn').forEach(btn => {
+    if (!btn.dataset.day) {
+      btn.classList.toggle('active', activeDay === null);
+    } else {
+      btn.classList.toggle('active', btn.dataset.day === activeDay);
+    }
+  });
+}
+
+function buildCatFilters() {
+  const container = document.getElementById('catFilters');
+  const cats = Object.keys(CAT_STYLES);
+
+  // "All" button
+  const allBtn = document.createElement('button');
+  allBtn.className = 'cat-btn active';
+  allBtn.textContent = `All (${EVENTS.length})`;
+  allBtn.style.background = '#333';
+  allBtn.style.borderColor = '#666';
+  allBtn.style.color = '#fff';
+  allBtn.onclick = () => {
+    activeCats.clear();
+    updateCatButtons();
+    render();
+  };
+  container.appendChild(allBtn);
+
+  cats.forEach(cat => {
+    const count = EVENTS.filter(e => e.c === cat).length;
+    const style = CAT_STYLES[cat];
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.textContent = `${cat} (${count})`;
+    btn.style.background = style.bg;
+    btn.style.borderColor = style.fg + '40';
+    btn.style.color = style.fg;
+    btn.dataset.cat = cat;
+    btn.onclick = () => {
+      if (activeCats.size === 1 && activeCats.has(cat)) {
+        // clicking the only active one → back to all
+        activeCats.clear();
+      } else {
+        // select only this one
+        activeCats.clear();
+        activeCats.add(cat);
+      }
+      updateCatButtons();
+      render();
+    };
+    container.appendChild(btn);
+  });
+}
+
+function updateCatButtons() {
+  const noFilter = activeCats.size === 0;
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    if (!btn.dataset.cat) {
+      // "All" button
+      btn.classList.toggle('active', noFilter);
+    } else {
+      btn.classList.toggle('active', noFilter || activeCats.has(btn.dataset.cat));
+    }
+  });
+}
+
+const COST_GROUPS = [
+  { key: 'free', label: 'Free', match: v => v === 'Free' },
+  { key: 'paid', label: 'Paid', match: v => v === 'Paid' },
+];
+
+function buildCostFilters() {
+  const container = document.getElementById('costFilters');
+
+  const allBtn = document.createElement('button');
+  allBtn.className = 'cost-btn active';
+  allBtn.textContent = 'All';
+  allBtn.onclick = () => { activeCost = null; updateCostButtons(); render(); };
+  container.appendChild(allBtn);
+
+  COST_GROUPS.forEach(g => {
+    const count = EVENTS.filter(e => g.match(e.f)).length;
+    const btn = document.createElement('button');
+    btn.className = 'cost-btn';
+    btn.textContent = `${g.label} (${count})`;
+    btn.dataset.cost = g.key;
+    btn.onclick = () => {
+      activeCost = activeCost === g.key ? null : g.key;
+      updateCostButtons();
+      render();
+    };
+    container.appendChild(btn);
+  });
+}
+
+function updateCostButtons() {
+  document.querySelectorAll('.cost-btn').forEach(btn => {
+    if (!btn.dataset.cost) {
+      btn.classList.toggle('active', activeCost === null);
+    } else {
+      btn.classList.toggle('active', btn.dataset.cost === activeCost);
+    }
+  });
+}
+
+function getCostClass(val) {
+  if (val === 'Free') return 'cost-free';
+  if (val === 'Invite Only') return 'cost-invite';
+  if (val === 'Paid') return 'cost-paid';
+  return 'cost-free';
+}
+
+function getEventId(e) {
+  let hash = 0;
+  const s = e.n + '|' + e.d;
+  for (let i = 0; i < s.length; i++) {
+    hash = ((hash << 5) - hash) + s.charCodeAt(i);
+    hash |= 0;
+  }
+  return 'e' + Math.abs(hash).toString(36);
+}
+
+function getFiltered() {
+  return EVENTS.filter(e => {
+    if (showSavedOnly && !savedEvents.has(getEventId(e))) return false;
+    if (activeDay && e.d !== activeDay) return false;
+    if (activeCats.size > 0 && activeCats.size < 12 && !activeCats.has(e.c)) return false;
+    if (activeCost) {
+      const group = COST_GROUPS.find(g => g.key === activeCost);
+      if (group && !group.match(e.f)) return false;
+    }
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase().trim();
+      const haystack = `${e.n} ${e.l} ${e.ds} ${e.c}`.toLowerCase();
+      // Word boundary match — "run" matches "run" and "running" but not "brunch"
+      const regex = new RegExp('\\b' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+      if (!regex.test(haystack)) return false;
+    }
+    return true;
+  });
+}
+
+function render() {
+  const filtered = getFiltered();
+  const grid = document.getElementById('grid');
+  const info = document.getElementById('resultsInfo');
+
+  info.innerHTML = `Showing <span>${filtered.length}</span> of ${EVENTS.length} events`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty"><div class="empty-icon">&#128533;</div><div class="empty-text">No events match your filters</div></div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(e => {
+    const style = CAT_STYLES[e.c] || CAT_STYLES['Networking & Happy Hours'];
+    const costClass = getCostClass(e.f);
+    const freeLabel = e.f || '';
+    const rsvpLink = e.u ? `<a class="card-rsvp" href="${e.u}" target="_blank" rel="noopener">RSVP &rarr;</a>` : '';
+    const eid = getEventId(e);
+    const isSaved = savedEvents.has(eid);
+
+    return `<div class="card">
+      <div class="card-top-row">
+        <span class="card-badge" style="background:${style.bg};color:${style.fg};border:1px solid ${style.border || style.bg}">${esc(e.c)}</span>
+        <button class="card-save ${isSaved ? 'saved' : ''}" onclick="toggleSave('${eid}', this)">${isSaved ? 'Saved &#10084;' : 'Save &#9825;'}</button>
+      </div>
+      <div class="card-header">
+        <div class="card-title">${esc(e.n)}</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-meta-item"><span class="card-meta-icon">&#128197;</span>${esc(e.d)}${e.t ? ' &middot; ' + esc(e.t) : ''}</div>
+        ${e.l ? `<div class="card-meta-item"><span class="card-meta-icon">&#128205;</span>${esc(e.l)}</div>` : ''}
+      </div>
+      ${e.ds ? `<div class="card-desc">${esc(e.ds)}</div>` : ''}
+      <div class="card-footer">
+        ${freeLabel ? `<span class="card-free ${costClass}">${esc(freeLabel)}</span>` : '<span></span>'}
+        ${rsvpLink}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function esc(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── Save & Share ──────────────────────────────────────
+function toggleSave(eid, btn) {
+  if (savedEvents.has(eid)) {
+    savedEvents.delete(eid);
+    btn.classList.remove('saved');
+    btn.innerHTML = 'Save &#9825;';
+  } else {
+    savedEvents.add(eid);
+    btn.classList.add('saved');
+    btn.innerHTML = 'Saved &#10084;';
+  }
+  localStorage.setItem('sxsw_saved', JSON.stringify([...savedEvents]));
+  updateSavedCount();
+}
+
+function updateSavedCount() {
+  document.getElementById('savedCount').textContent = `(${savedEvents.size})`;
+}
+
+function toggleSavedFilter() {
+  showSavedOnly = !showSavedOnly;
+  document.getElementById('savedToggle').classList.toggle('active', showSavedOnly);
+  render();
+}
+
+function shareMyPicks() {
+  if (savedEvents.size === 0) {
+    showToast('Save some events first!');
+    return;
+  }
+  const ids = [...savedEvents].join(',');
+  const url = window.location.origin + window.location.pathname + '?picks=' + encodeURIComponent(ids);
+  navigator.clipboard.writeText(url).then(() => {
+    showToast('Link copied! Share it with your friends');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Link copied! Share it with your friends');
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ─── Load shared picks from URL ────────────────────────
+function loadSharedPicks() {
+  const params = new URLSearchParams(window.location.search);
+  const picks = params.get('picks');
+  if (picks) {
+    const ids = new Set(picks.split(','));
+    savedEvents = ids;
+    localStorage.setItem('sxsw_saved', JSON.stringify([...savedEvents]));
+    showSavedOnly = true;
+    document.getElementById('savedToggle').classList.add('active');
+    updateSavedCount();
+    showToast("Viewing someone's picks!");
+  }
+}
+
+// Search
+document.getElementById('search').addEventListener('input', (e) => {
+  searchQuery = e.target.value;
+  render();
+});
+
+// ─── Inline event data ──────────────────────────────────
+</script>
+<script id="eventData">
+init([{"n":"AI Startup Rodeo","d":"Tue Mar 10","t":"All day","l":"","ds":"Two-day AI startup showcase and rodeo event.","c":"AI & Emerging Tech","f":"Free","u":"https://aistartuprodeo.com/"},{"n":"AI Startup Rodeo @ SXSW '26 (unofficial)","d":"Tue Mar 10","t":"8:00 AM - 4:00 PM daily","l":"TCEA, Austin, TX","ds":"Two-day event uniting Austin's AI community. Day 1: Full-Stack AI Labs, Workshops + Demo Floor. Day 2: Startup Day Labs, Bitcoin Builder Workshops, live launches. $15 for 2-day pass.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/jvi9l17h"},{"n":"Eden Cocktail Room EDU Networking Event","d":"Tue Mar 10","t":"7:00 PM","l":"Eden Cocktail Room, East 7th Street, Austin, TX 78701","ds":"Posh networking speakeasy experience for educators and professionals","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/eden-cocktail-room-edu-networking-event-tickets-1982468475577"},{"n":"Founders & Investors BBQ","d":"Tue Mar 10","t":"6:00 PM - 8:00 PM","l":"Austin, TX (exact address revealed upon registration)","ds":"Exclusive dining experience with all-you-can-eat BBQ for tech founders and investors. Investor ticket $100, Founder ticket $200.","c":"Startups & VC","f":"Free","u":"https://luma.com/tlrv726a"},{"n":"Founders & Investors BBQ","d":"Tue Mar 10","t":"6:00 PM - 8:00 PM","l":"","ds":"Pre-SXSW BBQ networking event for founders and investors.","c":"Startups & VC","f":"Free","u":"https://luma.com/d82scalc"},{"n":"Lunch Society: State of VC and Growth Equity (Austin Founders Only)","d":"Tue Mar 10","t":"11:30 AM - 1:30 PM","l":"The Red Fridge Society, 508 Oakland Ave, Austin, TX 78703","ds":"Discussion of VC and Growth Equity market trends with panelists Jim Curry (BuildGroup), Ben Freeberg (Oncology Ventures), and Jani Tuomi. Free, approval required. Event full/waitlist.","c":"Startups & VC","f":"Free","u":"https://luma.com/zgt4xrmd"},{"n":"MaxMeditation Winter 2026 Meditation Series","d":"Tue Mar 10","t":"6:00 PM","l":"1010 Land Creek Cove, Rollingwood, Austin, TX","ds":"Winter meditation series with guided sessions","c":"Wellness & Healthtech","f":"Paid","u":"https://www.eventbrite.com/e/maxmeditation-winter-2026-meditation-series-tickets-1979635626449"},{"n":"NetworkEDU","d":"Tue Mar 10","t":"6:00 PM","l":"Star Bar, 600 West 6th Street, Austin, TX 78701","ds":"TFA Greater Austin annual SXSW EDU networking event","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/networkedu-tickets-1980498680868"},{"n":"Open Lakehouse and AI","d":"Tue Mar 10","t":"6:00 PM - 9:00 PM","l":"Q-Branch, Austin, TX","ds":"OSA Community event on real-time databases, data lakes, and AI. Speakers from Altinity, Grafana, CelerData, and Fivetran. Food and beverages provided. Free.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/2cxlufyd"},{"n":"Pre-Conference Glow & Restore: A Breathwork Experience for Austin Women","d":"Tue Mar 10","t":"6:00 PM - 8:30 PM","l":"Casa de Luz Village, Austin, TX","ds":"Candle-lit breathwork session before conference week. Includes full-sized Soul CBD products and Mad Hippie skincare samples. Bring yoga mat. $40.","c":"Wellness & Healthtech","f":"Free","u":"https://luma.com/bxr1v7h1"},{"n":"Pulse & Policy: The Equitable Health Exchange Reception","d":"Tue Mar 10","t":"6:00 PM – 8:00 PM","l":"Austin, Texas","ds":"","c":"Wellness & Healthtech","f":"Free","u":"https://luma.com/AHABlocSXSW"},{"n":"SXSW XR Mixer: VR, AR, XR Meetup","d":"Tue Mar 10","t":"5:00 PM - 7:00 PM","l":"Viewer Ready, Austin, TX (register to see address)","ds":"Exclusive AR/VR/XR networking by ATXR at Viewer Ready. Drinks, snacks, and hands-on tech demos. No badge required. Free.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/8ofb2d9x"},{"n":"The Public House for the Future at SXSW EDU","d":"Tue Mar 10","t":"TBD","l":"Hilton Austin Downtown - Room 404, Convention Center District, Austin, TX","ds":"Public house future discussion at SXSW EDU","c":"Networking & Happy Hours","f":"Free","u":"https://www.eventbrite.com/e/the-public-house-for-the-future-at-sxsw-edu-tickets-1983960952616"},{"n":"2026 March Startup Coffee Connect","d":"Wed Mar 11","t":"10:00 AM","l":"FAC 101D, Austin, TX","ds":"Startup networking coffee event","c":"Startups & VC","f":"Paid","u":"https://www.eventbrite.com/e/2026-march-startup-coffee-connect-tickets-1983383385096"},{"n":"AI Startup Gathering | Hack AI","d":"Wed Mar 11","t":"6:00 PM – 8:00 PM","l":"1705 Guadalupe St, Austin, TX 78701, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/rjiov4tt"},{"n":"AI's Role in Culture, Collaboration, and Performance","d":"Wed Mar 11","t":"12:15 PM","l":"The Long Center for the Performing Arts, Austin, TX","ds":"Panel discussion on AI scaling organizational culture","c":"AI & Emerging Tech","f":"Paid","u":"https://www.eventbrite.com/e/ais-role-in-culture-collaboration-and-performance-tickets-1984225567085"},{"n":"Austin Digital Social Networking Mixer During SXSW","d":"Wed Mar 11","t":"6:00 PM - 12:00 AM","l":"1114 E Cesar Chavez St, Austin, TX","ds":"Monthly networking event by Sean Kelly (The Digital Social Hour Podcast, #2 on Apple/Spotify). Special SXSW edition connecting entrepreneurs and professionals. Free.","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/fgovdv4g"},{"n":"Ayana Rising: Women of the New Frontier","d":"Wed Mar 11","t":"1:00 PM - 6:00 PM","l":"1114 E Cesar Chavez St","ds":"Celebration of women scaling visionary companies with panels, activations, and founder-investor matchmaking.","c":"Women, DEI & Social Impact","f":"Free","u":"https://luma.com/77umpcit"},{"n":"BMI Presents Howdy Texas","d":"Wed Mar 11","t":"","l":"","ds":"Six bands including local favorites like Magna Carda and Elijah Delgado performing in a pre-festival showcase.","c":"Music & Nightlife","f":"Free","u":"https://www.bmi.com/stages/sxsw2026"},{"n":"Dream Wealth Camp SXSW Reception (Camelback Ventures)","d":"Wed Mar 11","t":"5:30 PM - 7:00 PM","l":"","ds":"SXSW reception hosted by Camelback Ventures for Dream Wealth Camp.","c":"Startups & VC","f":"Free","u":"https://luma.com/SXSWDWCCBV"},{"n":"Her Frequency | Female Founder Startup Showcase","d":"Wed Mar 11","t":"2:15 PM - 3:30 PM","l":"","ds":"International House female founder startup showcase event.","c":"Women, DEI & Social Impact","f":"Free","u":"https://www.eventbrite.com/e/international-house-her-frequency-female-founder-startup-showcase-tickets-1983236177795"},{"n":"International House","d":"Wed Mar 11","t":"10:00 AM - 10:00 PM","l":"","ds":"International House presents Frequency - a day of international programming and networking.","c":"International & Country Houses","f":"Free","u":"https://www.eventbrite.com/e/the-international-house-presents-frequency-tickets-1982249762400"},{"n":"International House 2026 | Frequency After Dark","d":"Wed Mar 11","t":"8:00 PM","l":"The Long Center for the Performing Arts, 701 West Riverside Drive, Austin, TX 78704","ds":"Evening of drinks, networking, and live DJ","c":"International & Country Houses","f":"Paid","u":"https://www.eventbrite.com/e/international-house-2026-frequency-after-dark-tickets-1982483156488"},{"n":"Network Before the Noise: Defense + Innovation Social","d":"Wed Mar 11","t":"5:00 PM - 10:00 PM","l":"","ds":"Social event for defense and innovation professionals.","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/ih7kiypt"},{"n":"Porchella 2026 - The Reverent Few's 5th Annual SXSW Porch Party","d":"Wed Mar 11","t":"3:00 PM","l":"E. 41st & Barrow Ave, Austin, TX 78751","ds":"5th annual SXSW porch party with good vibes","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/porchella-2026-the-reverent-fews-5th-annual-sxsw-porch-party-tickets-1982688241904"},{"n":"Pre-SXSW Tech Mixer","d":"Wed Mar 11","t":"6:45 PM – 9:00 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/xmu1j0xl"},{"n":"STARTUP FUNDRAISING STRATEGY SESSION 2026","d":"Wed Mar 11","t":"12:00 PM","l":"The Driskill Hotel, Austin, TX","ds":"One-on-one consultation with Silicon Valley fundraising expert","c":"Startups & VC","f":"Paid","u":"https://www.eventbrite.com/e/startup-fundraising-strategy-session-2026-tickets-1981619126150"},{"n":"Startup Mania","d":"Wed Mar 11","t":"All day","l":"","ds":"Startup Grind's annual startup event during SXSW.","c":"Startups & VC","f":"Free","u":"https://www.startupgrind.com/events/details/startup-grind-startup-mania-presents-startup-mania-2026/"},{"n":"SXSW '26 | The International House Presents: Frequency","d":"Wed Mar 11","t":"10:00 AM - 10:00 PM","l":"The Long Center for the Performing Arts, Austin, TX","ds":"Global summit serving as entry point into SXSW 2026. Convenes founders, investors, governments, and international partners. Organized by International Accelerator. Free.","c":"International & Country Houses","f":"Free","u":"https://luma.com/39hg9crt"},{"n":"SXSW AI & Innovation VIP Forum","d":"Wed Mar 11","t":"6:00 PM - 9:00 PM","l":"1519 W 29th St, Austin, TX 78703","ds":"Exclusive invitation-only evening with Argentine asado, wine tasting, and live music. Hosted by Austin AI Lab, powered by Shokworks. For executives, technologists, entrepreneurs. Free (invite required","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/wjx2l7gn"},{"n":"SXSW Grounding Soundbath","d":"Wed Mar 11","t":"7:30 PM","l":"Lizard Yoga, Menchaca Rd, Austin, TX","ds":"Grounding soundbath experience during SXSW","c":"Wellness & Healthtech","f":"Paid","u":"https://www.eventbrite.com/e/sxsw-grounding-soundbath-tickets-1984407041881"},{"n":"SXSW Rooftop Tech Mixer","d":"Wed Mar 11","t":"4:00 PM - 6:00 PM","l":"Downtown Austin, TX (register to see address)","ds":"Private rooftop networking by Entre and Fidelity. Open bar with top-tier founders and investors. Partners: Engine, Genius Wallet, WeWork, DealSend, Rho. $20.","c":"Startups & VC","f":"Free","u":"https://luma.com/ymrg3h06"},{"n":"The Austin Chapter: Where Startup Germany Meets Texas","d":"Wed Mar 11","t":"4:00 PM - 6:00 PM","l":"","ds":"Networking event connecting the German startup ecosystem with Texas.","c":"International & Country Houses","f":"Free","u":"https://luma.com/xlcc8qrk"},{"n":"The Hump - Live Comedy!","d":"Wed Mar 11","t":"9:00 PM","l":"The Velveeta Room, East 6th Street, Austin, TX","ds":"Longest-running comedy club in Austin","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/the-hump-live-comedy-tickets-1981253528638"},{"n":"Touch Grass Tech Picnic","d":"Wed Mar 11","t":"12:00 PM – 2:00 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/7k05rfa5"},{"n":"Women Fully Loaded SXSW","d":"Wed Mar 11","t":"9:45 AM – 12:30 PM","l":"Austin, Texas","ds":"","c":"Women, DEI & Social Impact","f":"Free","u":"https://luma.com/u8k6xix8"},{"n":"'Made in Austin' Official SXSW Showcase + Creative Hackathon","d":"Thu Mar 12","t":"3:00 PM – 11:00 PM","l":"Zilker Brewing Company and Taproom, 1701 E 6th St, Austin, TX 78702, USA","ds":"","c":"Art, Culture & Community","f":"Free","u":"https://luma.com/mbbx3bai"},{"n":"🇺🇸 America House: Startup & Tech Ecosystem Leaders Gather From Across the United States","d":"Thu Mar 12","t":"2:00 PM – 6:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/america-house-austin-2026"},{"n":"🎾 SXSW EDITION - Pickle & Pints: A Meetup for Austin's Tech and Research Community","d":"Thu Mar 12","t":"5:00 PM – 7:00 PM","l":"Austin, Texas","ds":"","c":"Exercise & Fitness","f":"Free","u":"https://luma.com/ya3ctff2"},{"n":"2026 SXSW KMB Presents Head Huncho Amir","d":"Thu Mar 12","t":"9:00 PM","l":"419 E 6th St, Convention Center District, Austin, TX","ds":"KMB presents Head Huncho Amir performance","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/2026-sxsw-kmb-presents-head-huncho-amir-tickets-1983886794808"},{"n":"26 Xperience press run","d":"Thu Mar 12","t":"10:00 AM","l":"Tellers, Convention Center District, Austin, TX","ds":"Press run event for 26 Xperience","c":"Film, Media & Journalism","f":"Paid","u":"https://www.eventbrite.com/e/26-xperience-press-run-tickets-1980544258191"},{"n":"4th Annual Austin DeepTech Dinner","d":"Thu Mar 12","t":"6:30 PM – 8:30 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/qmyuxt5m"},{"n":"5th Annual Austin Rhythm Revival","d":"Thu Mar 12","t":"","l":"Austin, TX","ds":"Americana music showcase during SXSW 2026","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/5th-annual-austin-rhythm-revival-americana-music-showcase-austin-tx-tickets-1982908394386"},{"n":"AAF Austin x Ad 2 Austin March Kick-Off Happy Hour","d":"Thu Mar 12","t":"6:00 PM","l":"ATD Partners, East Cesar Chavez, Austin, TX","ds":"March networking happy hour event","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/aaf-austin-x-ad-2-austin-march-kick-off-happy-hour-tickets-1983641014673"},{"n":"AI Profit Machine House","d":"Thu Mar 12","t":"","l":"Austin, TX","ds":"AI-focused event house during SXSW 2026","c":"AI & Emerging Tech","f":"Free","u":"https://www.eventbrite.com/e/ai-profit-machine-house-sxsw-2026-tickets-1979631504119"},{"n":"AI PROFIT MACHINE HOUSE","d":"Thu Mar 12","t":"2:00 PM","l":"Bungalow, Town Lake, Austin, TX","ds":"AI business event","c":"AI & Emerging Tech","f":"Free","u":"https://www.eventbrite.com/e/ai-profit-machine-house-tickets-1979631504119"},{"n":"Alcohol-Free House™ at SXSW • A Zero-Proof Happy Hour Takeover","d":"Thu Mar 12","t":"6:00 PM – 8:00 PM","l":"Remedy, 360 Nueces St STE 30, Austin, TX 78701, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/eojlbkjb"},{"n":"Art, Wine and Love at SXSW","d":"Thu Mar 12","t":"7:00 PM","l":"Cape Bottle Room, 500 San Marcos Street, Austin, TX 78702","ds":"Sip wine, enjoy art, and experience good times at SXSW","c":"Food, Drink & Culinary","f":"Paid","u":"https://www.eventbrite.com/e/art-wine-and-love-at-sxsw-tickets-1983403398958"},{"n":"ATX Austin Texas Music Fest 2026","d":"Thu Mar 12","t":"12:00 PM","l":"Tellers Austin, Convention Center District, Austin, TX","ds":"Multi-day music festival","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/atx-austin-texas-music-fest-2026-tickets-1982846982702"},{"n":"Austin Open Coffee Club SXSW Founder Meetup Networking","d":"Thu Mar 12","t":"","l":"Austin, TX","ds":"Founder meetup and networking event during SXSW","c":"Startups & VC","f":"Free","u":"https://luma.com/opencoffee"},{"n":"Build Together: Hosted by Build in Tulsa","d":"Thu Mar 12","t":"6:00 PM – 9:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/BITSXSW26"},{"n":"Build Together: Powered by Build in Tulsa","d":"Thu Mar 12","t":"6:00 PM - 9:00 PM","l":"","ds":"Community building event powered by Build in Tulsa.","c":"Startups & VC","f":"Free","u":"https://luma.com/pfvqe1aj"},{"n":"Build What’s Next - Official Path Launch","d":"Thu Mar 12","t":"5:00 PM – 8:00 PM","l":"Parley, 1628 E Cesar Chavez St B, Austin, TX 78702, USA","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/path-launch"},{"n":"Bullets & Beans Meetup at Halycon Coffee Bar","d":"Thu Mar 12","t":"","l":"Halcyon Coffee Bar, Austin, TX","ds":"Meetup event during SXSW 2026","c":"Networking & Happy Hours","f":"Free","u":"https://www.eventbrite.com/e/bullets-beans-sxsw-tickets-1981331775677"},{"n":"BYXCHELLA FEST","d":"Thu Mar 12","t":"","l":"Austin, TX","ds":"Festival event during SXSW","c":"Art, Culture & Community","f":"Free","u":"https://www.eventbrite.com/e/byxchella-fest-tickets-1980727138190"},{"n":"BYXCHELLA FEST (Austin)","d":"Thu Mar 12","t":"12:00 PM","l":"RichesArt Gallery, 2511 East 6th Street, Austin, TX 78702","ds":"Fusion of art, music, and culture experience","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/byxchella-fest-austin-tickets-1980727138190"},{"n":"Camp Outlander HardTech Meet Up","d":"Thu Mar 12","t":"6:30 PM - 8:30 PM","l":"","ds":"Hard tech meetup hosted by Camp Outlander.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/i9094b72"},{"n":"Capital Factory House","d":"Thu Mar 12","t":"All day","l":"Capital Factory, Downtown Austin","ds":"A five-day hub for founders and investors featuring workshops, coworking, and interactive experiences.","c":"Startups & VC","f":"Free","u":"https://house.capitalfactory.com/agenda"},{"n":"Capital Factory House","d":"Thu Mar 12","t":"","l":"Capital Factory, Austin, TX","ds":"Capital Factory's event house during SXSW with multiple programming days","c":"Startups & VC","f":"Free","u":"https://house.capitalfactory.com/"},{"n":"Capitalize VC x Transparent Collective Happy Hour","d":"Thu Mar 12","t":"5:00 PM – 7:00 PM","l":"Sunset Valley, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/pzk85mqm"},{"n":"Catholic Night at the Cathedral","d":"Thu Mar 12","t":"6:45 PM - 10:00 PM","l":"Saint Mary Catholic Cathedral, 203 East 10th Street","ds":"An evening of community featuring a priest talk, Eucharistic Adoration, and a courtyard concert.","c":"Art, Culture & Community","f":"Free","u":"https://www.eventbrite.com/e/unofficial-sxsw-catholic-night-at-the-cathedral-tickets-1982557398548"},{"n":"ceo dinner @ private mansion","d":"Thu Mar 12","t":"6:30 PM – 9:30 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/ceodinneraustin1"},{"n":"cocktails and light bites with beehiiv at sxsw","d":"Thu Mar 12","t":"5:00 PM – 7:00 PM","l":"Austin, Texas","ds":"","c":"Creator Economy","f":"Free","u":"https://luma.com/naxfdzgb"},{"n":"Congress Avenue Block Party","d":"Thu Mar 12","t":"11:00 AM - 7:00 PM","l":"Congress Avenue","ds":"A daily outdoor gathering space offering complimentary drinks, food, and sponsor swag. Open to the public.","c":"Networking & Happy Hours","f":"Free","u":"https://schedule.sxsw.com/2026/events/OE46436"},{"n":"Creators & Entrepreneurs Unite During SXSW Week","d":"Thu Mar 12","t":"6:00 PM","l":"CUBA512, 6800 West Gate Boulevard, Austin, TX 78745","ds":"Curated mixer for creators and entrepreneurs gathering in Austin","c":"Creator Economy","f":"Paid","u":"https://www.eventbrite.com/e/creators-entrepreneurs-unite-during-sxsw-week-tickets-1561219091329"},{"n":"Czech Night @ SXSW 2026","d":"Thu Mar 12","t":"5:00 PM – 11:00 PM","l":"Augustine Cocktail Bar, 86 Rainey St, Austin, TX 78701, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/u2y4r9pu"},{"n":"CZECH YOUR PACE: 5K Morning Run at SXSW 2026","d":"Thu Mar 12","t":"7:00 AM – 9:00 AM","l":"Augustine Cocktail Bar, 86 Rainey St, Austin, TX 78701, USA","ds":"","c":"Exercise & Fitness","f":"Free","u":"https://luma.com/c6j8oydx"},{"n":"European Founders x Funders Happy Hour at SXSW","d":"Thu Mar 12","t":"3:00 PM – 6:00 PM","l":"Capital Factory, 701 Brazos St, Austin, TX 78701, USA","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/dotkte2e"},{"n":"Farmstead to Future: CEOs, Chefs, and Farmers Building a Better Food System","d":"Thu Mar 12","t":"11:30 AM","l":"Barr Mansion, Austin, TX","ds":"Food industry panel discussion with executive and agricultural leaders","c":"Food, Drink & Culinary","f":"Paid","u":"https://www.eventbrite.com/e/farmstead-to-future-ceos-chefs-and-farmers-building-a-better-food-system-tickets-1983996975361"},{"n":"Female Founders Networking for Capital Happy Hour hosted by J.P. Morgan + Deel","d":"Thu Mar 12","t":"4:30 PM – 6:30 PM","l":"Austin, Texas","ds":"","c":"Women, DEI & Social Impact","f":"Free","u":"https://luma.com/grammq81"},{"n":"Founder Heaven","d":"Thu Mar 12","t":"4:00 PM - 7:00 PM","l":"","ds":"Networking event for founders at SXSW.","c":"Startups & VC","f":"Free","u":"https://founderheaven.squarespace.com/"},{"n":"Founders N' Funders: SXSW VC Reverse Pitch","d":"Thu Mar 12","t":"6:00 PM - 9:00 PM","l":"","ds":"Reverse pitch event where VCs pitch to founders.","c":"Startups & VC","f":"Free","u":"https://luma.com/fnfxsxsw0326"},{"n":"Free! ST. ELMO X ST. ELMO MUSIC FESTIVAL","d":"Thu Mar 12","t":"4:00 PM","l":"East Congress, Austin, TX","ds":"Free music festival event","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/free-st-elmo-x-st-elmo-music-festival-tickets-1984395656828"},{"n":"From Cowboys to Carbon: Grazing Solutions for Carbon, Water, Biodiversity","d":"Thu Mar 12","t":"1:30 PM","l":"Barr Mansion, Ballroom, and Farmstead, Coronado Hills, Austin, TX","ds":"Seminar on sustainable ranching and environmental solutions","c":"AI & Emerging Tech","f":"Paid","u":"https://www.eventbrite.com/e/from-cowboys-to-carbon-grazing-solutions-for-carbon-water-biodiversity-tickets-1983997883076"},{"n":"Funded House at SXSW 2026","d":"Thu Mar 12","t":"","l":"Austin, TX","ds":"Multi-day event house for funded startups during SXSW","c":"Startups & VC","f":"Free","u":"https://fundedhouse.com"},{"n":"Future in Focus: Meet Germany’s Top AI Startups","d":"Thu Mar 12","t":"5:00 PM – 6:30 PM","l":"Speakeasy, 412 Congress Ave. D, Austin, TX 78701, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/x44yh804"},{"n":"Gen Z has skills. So why aren’t they employable?","d":"Thu Mar 12","t":"5:00 PM – 7:00 PM","l":"AT&T Hotel and Conference Center, AT&T Executive Education & Conference Center, 1900 University Ave, Austin, TX 78705, USA","ds":"","c":"Women, DEI & Social Impact","f":"Free","u":"https://luma.com/cxovu5dq"},{"n":"German Startup Showcase: BuildTech, DeepTech & AI","d":"Thu Mar 12","t":"","l":"Austin, TX","ds":"German startup showcase focused on BuildTech, DeepTech, and AI enterprise operational technology","c":"AI & Emerging Tech","f":"Free","u":"https://www.eventbrite.de/e/german-startup-showcase-buildtech-deeptech-ai-enterprise-operational-tickets-1982888441707"},{"n":"Global Stage @ Downright","d":"Thu Mar 12","t":"7:00 PM - 12:00 AM","l":"Downright","ds":"International performances available nightly.","c":"Art, Culture & Community","f":"Free","u":"https://schedule.sxsw.com/venues/V2392"},{"n":"Innovation Opening Party","d":"Thu Mar 12","t":"7:00 PM - 10:00 PM","l":"Brazos Hall, 204 E. 4th St.","ds":"Official SXSW 2026 Innovation Opening Party.","c":"Networking & Happy Hours","f":"Free","u":"https://2026.do512.com/events/2026/3/12/sxsw-2026-innovation-opening-party-official-tickets"},{"n":"Investor Lounge","d":"Thu Mar 12","t":"11:00 AM – 7:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/gqhs0akm"},{"n":"Investor Salon: SWAN Impact Network at SXSW 2026","d":"Thu Mar 12","t":"6:00 PM – 8:30 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/xstrloe4"},{"n":"Just Us: Community, Capital & Culture Mixer","d":"Thu Mar 12","t":"2:30 PM – 4:00 PM","l":"360 Nueces St, Austin, TX 78701, USA","ds":"","c":"Women, DEI & Social Impact","f":"Free","u":"https://luma.com/mildks7r"},{"n":"K-GAME IR Day","d":"Thu Mar 12","t":"2:00 PM - 3:00 PM","l":"Fairmont Austin, 5F Manchester Ballroom, Booth #330","ds":"A curated IR session featuring five Korean game companies presenting their IP strategy and global expansion plans.","c":"Startups & VC","f":"Free","u":"https://luma.com/3yrsi7sb"},{"n":"Midwest House Austin 2026","d":"Thu Mar 12","t":"11:00 AM - 9:00 PM","l":"Texas Bankers Association, Austin, TX","ds":"Global stage for ideas and change from the Midwest region during SXSW. Conversations, connections, and networking. Free, waitlist-based.","c":"International & Country Houses","f":"Free","u":"https://luma.com/vght0n78"},{"n":"Opening of CzechHouse at SXSW 2026","d":"Thu Mar 12","t":"12:00 PM – 12:30 PM","l":"Augustine Cocktail Bar, 86 Rainey St, Austin, TX 78701, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/qsmu5go3"},{"n":"Physical AI Builders Showcase","d":"Thu Mar 12","t":"2:00 PM - 6:30 PM","l":"","ds":"Showcase for physical AI builders and developers.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/vwllgca0"},{"n":"Physical AI Builders Showcase (F50 Physical AI Summit)","d":"Thu Mar 12","t":"","l":"Austin, TX","ds":"Physical AI showcase and summit during SXSW","c":"AI & Emerging Tech","f":"Free","u":"https://www.eventbrite.com/e/sxsw-physical-ai-showcase-f50-physical-ai-summit-tickets-1978437436631"},{"n":"Purpose, Power & Presence: 1-Day Women Leaders Workshop in Austin, TX","d":"Thu Mar 12","t":"9:00 AM","l":"Regus - Austin, 901 South MoPac Expressway, Austin, TX 78746","ds":"Professional development workshop for women leaders","c":"Women, DEI & Social Impact","f":"Paid","u":"https://www.eventbrite.com/e/purpose-power-presence-1-day-women-leaders-workshop-in-austin-tx-tickets-1982438737630"},{"n":"Reimagining Our Food System at Food Tank's SXSW All Things Food","d":"Thu Mar 12","t":"9:30 AM","l":"Barr Mansion, Coronado Hills, Austin, TX","ds":"Food systems discussion and networking event","c":"Food, Drink & Culinary","f":"Paid","u":"https://www.eventbrite.com/e/reimagining-our-food-system-at-food-tanks-sxsw-all-things-food-tickets-1983998928202"},{"n":"Rolling Stone Future of Music Showcase","d":"Thu Mar 12","t":"","l":"ACL Live at the Moody Theater","ds":"Rolling Stone's Future of Music Showcase with multi-day performances.","c":"Music & Nightlife","f":"Free","u":"https://www.rollingstone.com/music/music-news/sxsw-future-of-music-showcase-full-lineup-1235503984/"},{"n":"SFD OPEN HOUSE (SXSW26 KICKOFF)","d":"Thu Mar 12","t":"6:00 PM","l":"LazyDaze, North University, Austin, TX","ds":"Open mic, panel discussions, and live performances","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/sfd-open-house-sxsw26-kickoff-tickets-1984577209858"},{"n":"Short Film Festival: All Things Food and Agriculture","d":"Thu Mar 12","t":"2:40 PM","l":"Barr Mansion, Ballroom, and Farmstead, 10463 Sprinkle Road, Austin, TX 78754","ds":"Film festival featuring farmer stories and sustainable food content","c":"Film, Media & Journalism","f":"Paid","u":"https://www.eventbrite.com/e/short-film-festival-all-things-food-and-agriculture-tickets-1983945830385"},{"n":"Sound Lynk Music Stage - Austin Texas","d":"Thu Mar 12","t":"7:00 PM","l":"Tellers Austin, 607 Trinity Street, Austin, TX 78701","ds":"Austin Texas Music Weekend concert featuring Sound Lynk Music Stage","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/sound-lynk-music-stage-austin-texas-tickets-1977358789368"},{"n":"South By San Jose","d":"Thu Mar 12","t":"","l":"Hotel San Jose","ds":"27th edition of this annual free festival with two dozen bands, vendors, and drinks.","c":"Music & Nightlife","f":"Free","u":"https://www.bunkhousehotels.com/hotel-san-jose/south-by-san-jose"},{"n":"South by South Hold'Em - Founder Investor Showdown","d":"Thu Mar 12","t":"5:30 PM - 10:00 PM","l":"","ds":"Poker-themed founder and investor networking showdown.","c":"Startups & VC","f":"Free","u":"https://luma.com/mo8m8wd7"},{"n":"South by Springtime: HR Meetup","d":"Thu Mar 12","t":"5:30 PM – 7:30 PM","l":"Central Machine Works, 4824 E Cesar Chavez St, Austin, TX 78702, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/xx4049e6"},{"n":"Stamped Music Stage - Austin Texas","d":"Thu Mar 12","t":"","l":"Austin, TX","ds":"Music showcase during SXSW","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/stamped-music-stage-austin-texas-tickets-1949008590159"},{"n":"Startup Crawl","d":"Thu Mar 12","t":"6:00 PM - 9:00 PM","l":"","ds":"Startup crawl organized by Capital Factory.","c":"Startups & VC","f":"Paid","u":"https://house.capitalfactory.com/page/4979257/crawl"},{"n":"Startup Crawl Kickoff Party","d":"Thu Mar 12","t":"","l":"Capital Factory, Austin, TX","ds":"Kickoff party for the SXSW startup crawl","c":"Startups & VC","f":"Free","u":"https://house.capitalfactory.com/page/4979256/backstage"},{"n":"Startup Germany Night Party at SXSW 2026","d":"Thu Mar 12","t":"","l":"Austin, TX","ds":"Evening party hosted by Startup Germany during SXSW","c":"International & Country Houses","f":"Free","u":"https://www.eventbrite.de/e/startup-germany-night-sxsw-2026-tickets-1982960538350"},{"n":"Startup Germany: Building the Future from Europe's Heart","d":"Thu Mar 12","t":"2:45 PM","l":"Speakeasy, Downtown, Austin, TX","ds":"Discussion on Germany's role as a DeepTech and startup hub","c":"International & Country Houses","f":"Paid","u":"https://www.eventbrite.de/e/startup-germany-building-the-future-from-europes-heart-tickets-1982889660352"},{"n":"Stay & Connect in Bubbl Houses - #SXSW2026","d":"Thu Mar 12","t":"12:00 PM – 11:00 PM","l":"Bouldin Avenue, Bouldin Ave, Austin, TX 78704, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/x02fc1cv"},{"n":"SXSW AI HOUSE PARTY with Glean & Codeium","d":"Thu Mar 12","t":"7:00 PM - 9:00 PM","l":"Electric Shuffle Austin, 91 Red River St STE 102, Austin, TX 78701","ds":"Official SXSW gathering featuring cocktails, conversation, and AI insights. SXSW badge required. First-come, first-served. Free.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/jslqyz57"},{"n":"SXSW Kickoff Tech Mixer","d":"Thu Mar 12","t":"5:00 PM - 7:00 PM","l":"Austin, TX (register to see address)","ds":"Exclusive tech networking for SXSW opening day. Venture-backed founders, VCs, and investors. Open bar, light snacks. Partners: PayPal, Rho, TaxTaker. $20.","c":"Startups & VC","f":"Free","u":"https://luma.com/lx5itodv"},{"n":"SXSW Themed Death Cafe @ Clozure HQ","d":"Thu Mar 12","t":"6:00 PM – 7:30 PM","l":"2920 E 12th St, Austin, TX 78702, USA","ds":"","c":"Wellness & Healthtech","f":"Free","u":"https://luma.com/njhwv7iy"},{"n":"TEDxUTAustin 2026 - Polaris","d":"Thu Mar 12","t":"9:00 AM","l":"Hogg Memorial Auditorium, The Drag, Austin, TX","ds":"TEDx event featuring ideas worth sharing","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/tedxutaustin-2026-polaris-tickets-1963655561645"},{"n":"Texas Futures Summit","d":"Thu Mar 12","t":"1:30 PM – 9:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/eqdzabt0"},{"n":"The Future of Fashion at SXSW: The Next Fashion Stack","d":"Thu Mar 12","t":"12:00 PM – 10:00 PM","l":"Austin, Texas","ds":"","c":"Art, Culture & Community","f":"Free","u":"https://luma.com/i1xzhpw5"},{"n":"The Happy Hour Garden","d":"Thu Mar 12","t":"4:00 PM – 10:00 PM","l":"1501 E 7th St, Austin, TX 78702, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/o90vj8w1"},{"n":"THE WEEKEND KICKOFF 2026","d":"Thu Mar 12","t":"9:00 PM","l":"Zola Hookah Lounge, Fireside Loop, Austin, TX","ds":"Weekend kickoff event and nightlife gathering","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/the-weekend-kickoff-2026-tickets-1982638945457"},{"n":"Visit Phoenix Presents: A Desert Alternative Showcase","d":"Thu Mar 12","t":"1:00 PM","l":"617 Red River St, Swedish Hill Historic District, Austin, TX","ds":"Alternative music showcase presentation","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/visit-phoenix-presents-a-desert-alternative-showcase-tickets-1983265468404"},{"n":"Voices of Female Farmers: A Love Story","d":"Thu Mar 12","t":"5:00 PM","l":"Barr Mansion","ds":"An evening of storytelling, film, and community celebrating women farmers, presented with Whole Foods Market.","c":"Women, DEI & Social Impact","f":"Free","u":"https://www.eventbrite.com/e/7th-annual-all-things-food-food-tank-summit-at-sxsw-2026-tickets-1978343041292"},{"n":"Voices of Female Farmers: A Love Story","d":"Thu Mar 12","t":"5:00 PM","l":"Barr Mansion, Ballroom, and Farmstead, 10463 Sprinkle Road, Austin, TX 78754","ds":"Night of storytelling and reception at SXSW","c":"Women, DEI & Social Impact","f":"Paid","u":"https://www.eventbrite.com/e/voices-of-female-farmers-a-love-story-a-night-of-storytelling-at-sxsw-tickets-1978858697634"},{"n":"Welcome to Austin Day Party - A Music & Tech Experience","d":"Thu Mar 12","t":"12:00 PM","l":"Flamingo Cantina, Austin, TX","ds":"Music and tech themed day party","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/welcome-to-austin-day-party-a-music-tech-experience-tickets-1983998988382"},{"n":"Women Future Forward SXSW Women in Tech Leadership Event","d":"Thu Mar 12","t":"","l":"Austin, TX","ds":"Women in tech leadership event during SXSW","c":"Women, DEI & Social Impact","f":"Free","u":"https://weareluminary.com/sxsw-women-future-forward"},{"n":"World Happiness Summit on Tour at SXSW2026","d":"Thu Mar 12","t":"10:00 AM","l":"Thompson Austin by Hyatt, 506 San Jacinto Boulevard, Austin, TX 78701","ds":"Live podcast extravaganza featuring bold ideas on happiness","c":"Wellness & Healthtech","f":"Paid","u":"https://www.eventbrite.com/e/world-happiness-summit-on-tour-at-sxsw2026-tickets-1978176184218"},{"n":"\"The Future of Sports Content Is Already Here\" Livesport × Fameplay | Austin 2026","d":"Fri Mar 13","t":"2:00 PM – 3:30 PM","l":"Augustine Cocktail Bar, 86 Rainey St, Austin, TX 78701, USA","ds":"","c":"Film, Media & Journalism","f":"Free","u":"https://luma.com/4vgwvupo"},{"n":"#OPENSHABBAT @ SXSW 2026","d":"Fri Mar 13","t":"7:30 PM - 12:00 AM","l":"Austin, TX (new location for 2026, register to see address)","ds":"SXSW's premiere Shabbat experience since 2010. Communal meal and un-networking event by Tech Tribe and Chabad Young Professionals. $45 suggested.","c":"Art, Culture & Community","f":"Paid","u":"https://luma.com/8q1ac12n"},{"n":"2026 Say Thanks Austin Closing Ceremony","d":"Fri Mar 13","t":"2:00 PM","l":"Austin City Hall, Downtown, Austin, TX","ds":"Closing ceremony event","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/2026-say-thanks-austin-closing-ceremony-tickets-1982704447375"},{"n":"AI Innovators & Investors Austin","d":"Fri Mar 13","t":"3:00 PM – 6:00 PM","l":"Austin, Texas","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/njjmcx4q"},{"n":"Amplitude's AI Cookout @ SXSW","d":"Fri Mar 13","t":"4:00 PM – 9:00 PM","l":"RichesArt Gallery, 2511 E 6th St unit A, Austin, TX 78702, USA","ds":"","c":"Food, Drink & Culinary","f":"Free","u":"https://luma.com/mfhmd7nk"},{"n":"Annual SX Pitch and Run 🤠","d":"Fri Mar 13","t":"9:00 AM – 12:00 PM","l":"Codependent Cocktails + Coffee, 301 West Ave STE 110, Austin, TX 78701, USA","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/sxswpnr"},{"n":"Ariat Austin | Friends & Family Weekend","d":"Fri Mar 13","t":"11:00 AM","l":"Ariat, South River City, Austin, TX","ds":"Friends and family shopping event weekend","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/ariat-austin-friends-family-weekend-tickets-1984165685979"},{"n":"Austin Beauty Pageant","d":"Fri Mar 13","t":"4:00 PM","l":"Private venue, Congress Ave District, Austin, TX","ds":"Beauty pageant competition event","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/austin-beauty-pageant-tickets-1770960032129"},{"n":"Austin Chronicle's Hair of the Three Legged Dog Party","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Austin Chronicle's annual SXSW day party","c":"Networking & Happy Hours","f":"Free","u":"https://austinchronicle.com/day-party/"},{"n":"Austin Hardtech Open House at re:3D","d":"Fri Mar 13","t":"2:00 PM – 7:00 PM","l":"re:3D, Inc., 1201 Old Bastrop Hwy, Austin, TX 78742, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/7mntsane"},{"n":"Austin Pro Creatives Coffee! Friday March 13, 2026","d":"Fri Mar 13","t":"10:00 AM","l":"Easy Tiger South Lamar, 3508 South Lamar Boulevard, Austin, TX 78704","ds":"Casual gathering for creative professionals to network over coffee","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/austin-pro-creatives-coffee-friday-march-13-2026-tickets-1984449113719"},{"n":"Axios House","d":"Fri Mar 13","t":"All day","l":"","ds":"News-driven conversations with leaders in tech, media, culture, and communications.","c":"Film, Media & Journalism","f":"Free","u":"https://axioshouseatsxsw-interest.splashthat.com/"},{"n":"Balanced Breakfast 2026 Austin Showcase during SXSW - Day 1","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Music industry showcase and networking - Day 1","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/balanced-breakfest-2026-austin-showcase-day-1-during-sxsw-tickets-1977260222552"},{"n":"Behind the Scroll: How the EU Protects Children and Teens Online","d":"Fri Mar 13","t":"10:00 AM","l":"Speakeasy, Downtown, Austin, TX","ds":"Interactive experience exploring EU online protection measures","c":"AI & Emerging Tech","f":"Paid","u":"https://www.eventbrite.com/e/behind-the-scroll-how-the-eu-protects-children-and-teens-online-tickets-1984570495776"},{"n":"Brave1 Invest Demo Day Austin","d":"Fri Mar 13","t":"9:00 AM - 1:00 PM","l":"","ds":"Demo day for Brave1 Invest portfolio companies.","c":"Startups & VC","f":"Free","u":"https://luma.com/uvei2k2q"},{"n":"Breaking & Entering After Hours Happy Hour with Epidemic Sound","d":"Fri Mar 13","t":"5:00 PM – 8:00 PM","l":"The Flower Shop Austin, 1300 E 7th St, Austin, TX 78702, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/lpu95bf9"},{"n":"Building Capital and Systems for Growth: Curated Networking + Happy Hour","d":"Fri Mar 13","t":"7:30 PM – 10:30 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/tc8tnmnw"},{"n":"Built:In Austin @ SXSW | Fintech Edition","d":"Fri Mar 13","t":"5:30 PM – 7:30 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/68hom0o3"},{"n":"Calling All Hardware Nerds: Join Us for Demos, Drinks, and Pizza!","d":"Fri Mar 13","t":"2:00 PM","l":"re:3D, Inc., Austin, TX","ds":"Hardware demonstration and networking event","c":"AI & Emerging Tech","f":"Free","u":"https://www.eventbrite.com/e/calling-all-hardware-nerds-join-us-for-demos-drinks-and-pizza-tickets-1984335829884"},{"n":"Camp Outlander Breakfast","d":"Fri Mar 13","t":"9:30 AM – 11:30 AM","l":"Austin, Texas","ds":"","c":"Food, Drink & Culinary","f":"Free","u":"https://luma.com/wchstisx"},{"n":"CAN'T EVEN COMEDY FREE DRINKS COMEDY SHOW AT A SECRET LOCATION IN AUSTIN","d":"Fri Mar 13","t":"8:00 PM","l":"Barton Springs Road, Austin, TX","ds":"Free drinks comedy show at a secret location","c":"Art, Culture & Community","f":"Free","u":"https://www.eventbrite.com/e/cant-even-comedy-free-drinks-comedy-show-at-a-secret-location-in-austin-tickets-1981532880186"},{"n":"Canada House 2026 - Panels & Fireside Chat","d":"Fri Mar 13","t":"2:30 PM","l":"Central District Brewing, Swedish Hill Historic District, Austin, TX","ds":"Canada House returns to South by Southwest with panels and discussions","c":"International & Country Houses","f":"Paid","u":"https://www.eventbrite.com/e/canada-house-2026-panels-fireside-chat-tickets-1983543291380"},{"n":"Canada House at SXSW 2026 - Opening VIP Reception","d":"Fri Mar 13","t":"5:00 PM - 7:00 PM","l":"Central District Brewing, 417 Red River Street","ds":"A VIP reception celebrating the relaunch of Canada House, featuring leaders from U.S. and Canada.","c":"International & Country Houses","f":"Free","u":"https://www.eventbrite.com/e/canada-house-at-sxsw-2026-opening-vip-reception-tickets-1234934425109"},{"n":"ceo dinner @ private mansion","d":"Fri Mar 13","t":"6:30 PM – 9:30 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/ceodinneraustin2"},{"n":"Coca-Cola's Sips & Sounds Music Festival","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Coca-Cola sponsored music festival during SXSW","c":"Music & Nightlife","f":"Free","u":"https://sipssoundsfest.com/"},{"n":"CZECH YOUR PACE: 5K Morning Run at SXSW 2026","d":"Fri Mar 13","t":"7:00 AM – 9:00 AM","l":"Augustine Cocktail Bar, 86 Rainey St, Austin, TX 78701, USA","ds":"","c":"Exercise & Fitness","f":"Free","u":"https://luma.com/qmn73qhc"},{"n":"Dream Boldly: Investors + Founders Rooftop & Global Launch Event","d":"Fri Mar 13","t":"5:30 PM – 8:30 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/31n27b8y"},{"n":"Elite Sales Performance - Intensive 1 Day Workshop in Austin, TX","d":"Fri Mar 13","t":"9:00 AM","l":"Regus, The Drag, Austin, TX","ds":"Professional sales training workshop","c":"Startups & VC","f":"Paid","u":"https://www.eventbrite.sg/e/elite-sales-performance-intensive-1-day-workshop-in-austin-tx-tickets-1894754554879"},{"n":"Equitech Texas Welcome Breakfast","d":"Fri Mar 13","t":"11:00 AM - 12:30 PM","l":"","ds":"Welcome breakfast for equity in tech community.","c":"Women, DEI & Social Impact","f":"Free","u":"https://luma.com/peq53vu8"},{"n":"European Beats Night","d":"Fri Mar 13","t":"7:30 PM","l":"Speakeasy, Downtown, Austin, TX","ds":"Live performances featuring European artists and bands","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/european-beats-night-tickets-1983880947318"},{"n":"Fast Company Grill","d":"Fri Mar 13","t":"All day","l":"201 Brazos St","ds":"A four-day hub for business leaders and creatives featuring programming, demos, tastings, lunch, and happy hours.","c":"Networking & Happy Hours","f":"Free","u":"https://events.fastcompany.com/grill_2026/home"},{"n":"Flatstock","d":"Fri Mar 13","t":"All day","l":"Austin Convention Center","ds":"A massive poster art show featuring artists from around the world. Browse collectible prints and meet creators.","c":"Art, Culture & Community","f":"Free","u":"https://schedule.sxsw.com/2026/events/OE46413"},{"n":"Frontier House x LaFamilia VC Mixer","d":"Fri Mar 13","t":"12:00 PM - 3:00 PM","l":"Downtown Austin (address provided upon approval)","ds":"An unofficial SXSW VC mixer bringing together investors, founders, and ecosystem builders with tacos and drinks.","c":"Startups & VC","f":"Free","u":"https://luma.com/np5qzs55"},{"n":"GABC Maison Black Market","d":"Fri Mar 13","t":"10:00 AM","l":"African American Cultural and Heritage Facility, Swedish Hill, Austin, TX","ds":"Black market and cultural event","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/gabc-maison-black-market-tickets-1984307656617"},{"n":"German Startup Showcase: Technology for a Better Life - Health Empowerment","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"German startup showcase focused on health technology and empowerment","c":"AI & Emerging Tech","f":"Free","u":"https://www.eventbrite.de/e/german-startup-showcase-technology-for-a-better-life-health-empowerment-tickets-1982894021396"},{"n":"Global Innovation Kickoff Party","d":"Fri Mar 13","t":"7:00 PM – 10:00 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/mgehpr84"},{"n":"Hail to the Innovators: University of Michigan at SXSW 2026","d":"Fri Mar 13","t":"11:00 AM - 5:00 PM","l":"716 Congress Ave., Austin, TX","ds":"UMich flagship SXSW presence with panels on AI, entrepreneurship, leadership. Live demos, innovation showcases, collaboration with UT Austin. Free.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/asqx2mhv"},{"n":"Hair of the Three-Legged Dog Day Party Vol. 11","d":"Fri Mar 13","t":"","l":"","ds":"Free tacos from Eldorado Cafe and drinks with live sets; benefits Austin Pets Alive!","c":"Food, Drink & Culinary","f":"Free","u":"https://tickets.austinchronicle.com/events/the-austin-chronicles-hair-of-the-three-legged-dog-day-party-vol-11-3-13-2026"},{"n":"Hiring Shouldn't Suck™ Dinner (Austin Edition - 3/12/26)","d":"Fri Mar 13","t":"7:00 PM – 9:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/9oz42ax6"},{"n":"Inc. Founders House","d":"Fri Mar 13","t":"All day","l":"","ds":"An intimate founder-to-founder experience featuring conversations, meet-and-greets with Inc. editors, and Texas-inspired meals.","c":"Startups & VC","f":"Free","u":"https://events.inc.com/inc-founders-house-2026-austin/"},{"n":"Irish Coffee Hour - in Partnership with Foxes Bow","d":"Fri Mar 13","t":"3:30 PM – 6:00 PM","l":"Marlow, 700 E 6th St, Austin, TX 78701, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/fudwxry8"},{"n":"Irish Sport Rising: Tech, Talent, and Global Partnerships","d":"Fri Mar 13","t":"2:30 PM – 3:30 PM","l":"Marlow, 700 E 6th St, Austin, TX 78701, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/qdndxj0t"},{"n":"Leadership in Brand Marketing Summit @ SXSW","d":"Fri Mar 13","t":"All day","l":"Lamberts Restaurant & La Condesa, 2nd Street District","ds":"A multi-day summit for brand-side marketers featuring panels and networking hosted by Brand Innovators. Approval required.","c":"Startups & VC","f":"Free","u":"https://brand-innovators.com/events/leadership-in-brand-marketing-summit-sxsw-in-austin-2026/"},{"n":"Liberty Ventures Reception at SXSW","d":"Fri Mar 13","t":"5:00 PM – 7:00 PM","l":"Sputnik ATX VC, 200 E 6th St ste.230, Austin, TX 78701, USA","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/wfmm3v5y"},{"n":"Lone Star Roadhouse","d":"Fri Mar 13","t":"","l":"East End Ballroom","ds":"Three-day event with live music, beer, and vendor markets.","c":"Music & Nightlife","f":"Free","u":"https://www.instagram.com/p/DVRvJ1Ojwow/"},{"n":"Match House","d":"Fri Mar 13","t":"","l":"","ds":"Match House networking and matchmaking event for founders and investors.","c":"Startups & VC","f":"Free","u":"https://www.matchhouse.events/"},{"n":"MediaTech Morning: Breakfast, Networking & Input","d":"Fri Mar 13","t":"10:00 AM","l":"Speakeasy, Downtown, Austin, TX","ds":"Breakfast and networking for media/tech professionals","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.de/e/mediatech-morning-breakfast-networking-input-tickets-1982892883994"},{"n":"Mercury Pop-Up at SXSW: Built to Your Standards","d":"Fri Mar 13","t":"8:00 AM – 4:00 PM","l":"","ds":"","c":"Creator Economy","f":"Free","u":"https://luma.com/Mercury_SXSW_2026"},{"n":"Midwest House at Inn Cahoots","d":"Fri Mar 13","t":"12:00 PM – 11:00 PM","l":"Inn Cahoots, 1221 E 6th St, Austin, TX 78702, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/0mypd7p5"},{"n":"Nikon ATX | Film Grains & Black and White Portraiture","d":"Fri Mar 13","t":"9:30 AM","l":"918 Congress Ave., Austin, TX 78701","ds":"Free photo walk or workshops in Nikon Studio with special guest","c":"Film, Media & Journalism","f":"Free","u":"https://www.eventbrite.com/e/nikon-atx-film-grains-black-and-white-portraiture-tickets-1982976910319"},{"n":"No Bad Company Presents:  Tenur House, Unofficial SXSW Friday, March 13th","d":"Fri Mar 13","t":"11:00 AM – 3:00 PM","l":"Austin, Texas","ds":"","c":"Music & Nightlife","f":"Free","u":"https://luma.com/3w1xx42w"},{"n":"Northeast Meetup @ SXSW ↗️","d":"Fri Mar 13","t":"3:00 PM – 7:00 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/txayubqj"},{"n":"Nucleate Texas House @ SXSW 2026","d":"Fri Mar 13","t":"5:00 PM - 10:30 PM","l":"1209 E Cesar Chavez St, Austin, TX","ds":"Science, startups, and culture converge. State of Biotech panel, startup pitches, investor reverse pitches, DJ sets, networking. 21+ only. Free RSVP.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/nucleate-sxsw-2026"},{"n":"Openair SXSW Angel Investor, AI Startup & Influencer Mixer","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Mixer for angel investors, AI startups, and influencers","c":"Startups & VC","f":"Free","u":"https://www.eventbrite.com/e/openair-sxsw-angel-investor-ai-startup-influencer-mixer-tickets-1983825423244"},{"n":"Pitch Roast Live SXSW","d":"Fri Mar 13","t":"6:00 PM - 8:30 PM","l":"Pershing Hall, 2415C E 5th St","ds":"A comedy-meets-startup showcase where comedians and VC investors roast real founder pitches.","c":"Startups & VC","f":"Paid","u":"https://luma.com/pitchroastsxsw"},{"n":"Podcast Movement at SXSW","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Podcast Movement event during SXSW - free to attend","c":"Creator Economy","f":"Free","u":"https://weekly.podcastmovement.com/p/why-we-re-bringing-podcast-movement-to-sxsw-and-making-it-free"},{"n":"Proptech House","d":"Fri Mar 13","t":"8:00 AM – 6:00 PM","l":"300 W Martin Luther King Jr Blvd, Austin, TX 78701, USA","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/albuumsp"},{"n":"PropTech Startup Showdown SXSW Real Estate Tech Event","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Real estate tech startup competition during SXSW","c":"Startups & VC","f":"Free","u":"https://tech.realtor/nar-tech-innovation-at-sxsw/"},{"n":"Radio Day Stage @ Downright","d":"Fri Mar 13","t":"","l":"Downright","ds":"Live broadcast performances featuring local and international artists.","c":"Music & Nightlife","f":"Free","u":"https://schedule.sxsw.com/venues/V2391"},{"n":"Realtor.com Open House","d":"Fri Mar 13","t":"10:00 AM - 8:00 PM","l":"Realtor.com HQ, 901 E 6th Street","ds":"A full day of programming including coworking lounge, tastings, startup pitch competition, and evening party.","c":"Startups & VC","f":"Free","u":"https://realtor-open-house.vfairs.com/"},{"n":"Signal Run: SXSW | 2026 Series Kickoff","d":"Fri Mar 13","t":"8:00 AM – 9:30 AM","l":"Austin, Texas","ds":"","c":"Exercise & Fitness","f":"Free","u":"https://luma.com/signlrun-sxsw26"},{"n":"South Asian Advantage @ SXSW","d":"Fri Mar 13","t":"10:00 AM – 8:00 PM","l":"Austin, Texas","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/asan-sac-sxsw-26"},{"n":"South by Sips & Snacks: Taste What's Next","d":"Fri Mar 13","t":"2:00 PM - 5:00 PM","l":"Manana Downtown, 111 Sandra Muraida Way, Suite #101","ds":"An afternoon of sampling emerging snacks and beverages, meeting founders, enjoying live music.","c":"Food, Drink & Culinary","f":"Free","u":"https://www.eventbrite.com/e/south-by-sips-snacks-taste-whats-next-tickets-1983783639267"},{"n":"South X Innovation Panel w/ Hill Climbers","d":"Fri Mar 13","t":"6:00 PM – 10:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/kgpp6zut"},{"n":"Stay & Connect in Bubbl Houses","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Unique accommodation and networking experience during SXSW","c":"Networking & Happy Hours","f":"Free","u":"https://www.eventbrite.com/e/stay-connect-in-bubbl-houses-sxsw2026-tickets-1982791807672"},{"n":"Stop #1: Rainy Street Pub Crawl","d":"Fri Mar 13","t":"6:30 PM – 8:30 PM","l":"Banger's Sausage House & Beer Garden, 79 Rainey St, Austin, TX 78701, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/fd0a3hiu"},{"n":"Swift Fit Recovery Lounge at SXSW","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Recovery and wellness lounge during SXSW","c":"Wellness & Healthtech","f":"Free","u":"https://www.eventbrite.com/e/2026-swift-fit-recovery-lounge-tickets-1982791807672"},{"n":"SXJP Infusion Japan by JETRO","d":"Fri Mar 13","t":"11:00 AM – 4:00 PM","l":"Austin, Texas","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/3gz34geu"},{"n":"SXSW Pitch Award Ceremony","d":"Fri Mar 13","t":"","l":"110 E. 2nd St.","ds":"Official SXSW Pitch competition and award ceremony.","c":"Startups & VC","f":"Free","u":"https://schedule.sxsw.com"},{"n":"SXSW Side Event: Build Your Own AI Agent Team in 60 Min – For Non-Tech Founders","d":"Fri Mar 13","t":"2:00 PM – 3:00 PM","l":"Pirin.ai - Founder Builder Studio, 2235 E 6th St, Austin, TX 78702, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/rd90l9ac"},{"n":"SXSW Unofficial Open Austin EFF Interactive Tech Event","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Open Austin and EFF interactive tech event during SXSW","c":"Art, Culture & Community","f":"Free","u":"https://www.eventbrite.com/e/sxsw-unofficial-open-austin-presents-eff-austin-interactive-tickets-1982791807672"},{"n":"SXSW unofficial The Offline Social Activation: Brands and Partners","d":"Fri Mar 13","t":"1:00 PM – 10:00 PM","l":"Cuvee Coffee & Bar, 48 East Ave, Austin, TX 78701, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/2j2nzcw0"},{"n":"Tennessee House","d":"Fri Mar 13","t":"All day","l":"Electric Shuffle","ds":"Celebration of innovation and culture from Tennessee with startups, tech showcases, and Southern hospitality.","c":"International & Country Houses","f":"Free","u":"https://www.tn.house/"},{"n":"Tennessee House: Opening Night VIP Party","d":"Fri Mar 13","t":"5:00 PM – 10:00 PM","l":"Electric Shuffle Austin, 91 Red River St STE 102, Austin, TX 78701, USA","ds":"","c":"Music & Nightlife","f":"Free","u":"https://luma.com/tn.house.friday"},{"n":"Texas AI House - Presented by webAI","d":"Fri Mar 13","t":"9:00 AM – 5:00 PM","l":"Austin, Texas","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/texas-ai-house"},{"n":"Texas House @ SXSW","d":"Fri Mar 13","t":"12:30 PM – 10:30 PM","l":"304 E 3rd St, Austin, TX 78701, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/texashouse.sxsw26"},{"n":"The Array Party","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Party event during SXSW 2026","c":"Networking & Happy Hours","f":"Free","u":"https://www.eventbrite.com/e/the-array-party-tickets-1980273956712"},{"n":"The Bridge SxSW","d":"Fri Mar 13","t":"9:00 PM","l":"Crazy Conchaz, 87 Rainey Street, Austin, TX 78701","ds":"Ready for your SXSW moment? The Bridge 2026 hits Austin March 13","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/the-bridge-sxsw-tickets-1984070782119"},{"n":"THE COOL KIDS HOUSE SXSW","d":"Fri Mar 13","t":"9:00 PM – 1:00 PM","l":"Austin, TX, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/fr3ufhti"},{"n":"The Creator Economy: Founder Panel + Private Mixer","d":"Fri Mar 13","t":"9:00 AM – 12:00 PM","l":"Capital Factory, 701 Brazos St, Austin, TX 78701, USA","ds":"","c":"Creator Economy","f":"Free","u":"https://luma.com/rdvi6xyy"},{"n":"The Hum Lounge at Ireland House: A Soft Reset","d":"Fri Mar 13","t":"11:00 AM – 12:00 PM","l":"Marlow, 700 E 6th St, Austin, TX 78701, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/2mtsu40j"},{"n":"THE LIGHT HOUSE 2026: Love is our LLM","d":"Fri Mar 13","t":"12:00 PM","l":"The Belmont, Austin, TX","ds":"Event at The Belmont in Warehouse District","c":"AI & Emerging Tech","f":"Free","u":"https://www.eventbrite.com/e/the-light-house-2026-love-is-our-llm-tickets-1976791835594"},{"n":"The Non Obvious Clubhouse Party SXSW 2026","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"Party event during SXSW 2026","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/the-non-obvious-clubhouse-party-sxsw-2026-tickets-1761827586739"},{"n":"The Unfair Capital Advantage [Women's Event During SXSW]","d":"Fri Mar 13","t":"12:00 PM – 3:00 PM","l":"Austin, Texas","ds":"","c":"Women, DEI & Social Impact","f":"Free","u":"https://luma.com/r66xju89"},{"n":"TikTok House in Austin, Texas during SXSW 2026","d":"Fri Mar 13","t":"","l":"Austin, TX","ds":"TikTok's event house during SXSW 2026","c":"Creator Economy","f":"Free","u":"https://www.eventbrite.com/e/tiktok-house-sxsw-austin-tickets-1982976751845"},{"n":"11AM R&B Party","d":"Sat Mar 14","t":"11:00 AM","l":"Victory East, Austin, TX","ds":"R&B music party event","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/11am-rb-party-tickets-1984585767454"},{"n":"2026 Day of the Dead 1M 5K 10K 13.1 26.2","d":"Sat Mar 14","t":"1:00 PM","l":"Congress Ave District, Austin, TX","ds":"Virtual race themed for Day of the Dead","c":"Exercise & Fitness","f":"Paid","u":"https://www.eventbrite.com/e/2026-day-of-the-dead-1m-5k-10k-131-262-registration-1982907026294"},{"n":"2026 Race Alotl for the Axolotl 1M 5K 10K 13.1 26.2","d":"Sat Mar 14","t":"1:00 PM","l":"Congress Ave District, Austin, TX","ds":"Multiple distance running race event","c":"Exercise & Fitness","f":"Paid","u":"https://www.eventbrite.com/e/2026-race-alotl-for-the-axolotl-1m-5k-10k-131-262-registration-1982905473650"},{"n":"5K Run/Walk with The Hustle x Founders Running Club","d":"Sat Mar 14","t":"8:00 AM – 10:00 AM","l":"Estacionamiento Edward Rendon Park, 1601-1999 Nash Hernandez Senior Rd, Austin, TX 78702, USA","ds":"","c":"Exercise & Fitness","f":"Free","u":"https://luma.com/v4xwa416"},{"n":"A Master Class in Film Finance","d":"Sat Mar 14","t":"","l":"Austin, TX","ds":"Film finance master class during SXSW week","c":"Film, Media & Journalism","f":"Paid","u":"https://www.eventbrite.com/e/a-master-class-in-film-finance-march-14-2026-austin-tx-tickets-1982791807672"},{"n":"Agency Owner Mixer @ SXSW 26","d":"Sat Mar 14","t":"1:00 PM – 4:00 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/dj7iwuis"},{"n":"AI Leaders of SXSW - Investors - CISOs - Founders","d":"Sat Mar 14","t":"6:00 PM – 8:30 PM","l":"Austin, Texas","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/hzcgiy1v"},{"n":"Americana First, Part Two","d":"Sat Mar 14","t":"11:00 AM – 5:30 PM","l":"Austin, Texas","ds":"","c":"Music & Nightlife","f":"Free","u":"https://luma.com/6cp3wq7o"},{"n":"Anti-SXSW Showcase","d":"Sat Mar 14","t":"3:00 PM","l":"10917 S I-35 Frontage Rd, Pleasant View, Austin, TX","ds":"Alternative SXSW showcase event","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/anti-sxsw-showcase-tickets-1984306349708"},{"n":"Attensity! Book Event at SXSW","d":"Sat Mar 14","t":"4:00 PM","l":"TOMO mags, Downtown, Austin, TX","ds":"Book reading, Q&A, and signing with authors","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/attensity-book-event-at-sxsw-tickets-1984561439689"},{"n":"AUSTIN SCIENCE NETWORK NIGHT @RTX HOUSE @SXSW2026","d":"Sat Mar 14","t":"6:30 PM – 9:00 PM","l":"The LINE Austin, 111 E Cesar Chavez St, Austin, TX 78701, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/8vj9x7lu"},{"n":"Austin St Patrick's Day Bar Crawl & Block Party - 10+ bars!","d":"Sat Mar 14","t":"1:00 PM","l":"Little Woodrow's West 6th, Market District, Austin, TX","ds":"St. Patrick's Day bar crawl and block party across multiple venues","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/austin-st-patricks-day-bar-crawl-block-party-10-bars-tickets-1980123756459"},{"n":"Axios Entertainment Effect on Health and Wellness","d":"Sat Mar 14","t":"","l":"Austin, TX","ds":"Axios panel on entertainment's effect on health and wellness","c":"Wellness & Healthtech","f":"Free","u":"https://axiostheentertainmenteffectonhealthandwellness.splashthat.com/"},{"n":"Axios Future of Food and Drink","d":"Sat Mar 14","t":"","l":"Austin, TX","ds":"Axios industry event on the future of food and drink","c":"Food, Drink & Culinary","f":"Free","u":"https://axiosanewrecipeforsuccess.splashthat.com/"},{"n":"BALANCED BREAKFEST 2026 | Austin Showcase - DAY 2 - During SxSW","d":"Sat Mar 14","t":"2:00 PM","l":"Woody's Bar, Downtown, Austin, TX","ds":"Austin showcase day 2 during SXSW","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/balanced-breakfest-2026-austin-showcase-day-2-during-sxsw-tickets-1983232864886"},{"n":"Berlin House: Party, Pitches & Perspectives - Day 3 at German Haus","d":"Sat Mar 14","t":"11:30 AM","l":"Speakeasy, Downtown, Austin, TX","ds":"Bold ideas, creative tech and global connections from Berlin","c":"International & Country Houses","f":"Paid","u":"https://www.eventbrite.de/e/berlin-house-party-pitches-perspectives-day-3-at-german-haus-tickets-1983528748883"},{"n":"Blumhouse's SXSW Horror Trivia Meet-up","d":"Sat Mar 14","t":"11:00 AM","l":"Swift's Attic, Downtown, Austin, TX","ds":"Horror fan trivia competition with prizes","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/blumhouses-sxsw-horror-trivia-meet-up-tickets-1984582101489"},{"n":"Builders After Hours: Austin Happy Hour","d":"Sat Mar 14","t":"5:30 PM – 8:30 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/mrx7m3q5"},{"n":"Camp Outlander X SXSW BBQ","d":"Sat Mar 14","t":"1:00 PM - 4:00 PM","l":"","ds":"BBQ hosted by Camp Outlander during SXSW.","c":"Food, Drink & Culinary","f":"Free","u":"https://luma.com/5yo4wovy"},{"n":"Capital & Innovation Salon @ SXSW","d":"Sat Mar 14","t":"12:00 PM – 3:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/SXSWsalon"},{"n":"Capital for the Culture Innovation Hub 2026 During SXSW","d":"Sat Mar 14","t":"12:00 PM - 7:30 PM","l":"The Cathedral, Austin, TX","ds":"4th annual Innovation Hub blending culture, innovation, and community wealth. Fireside chats, SMB showcases, brand activations, networking. Partners: Wells Fargo Foundation, Univision Foundation. Free","c":"Art, Culture & Community","f":"Free","u":"https://luma.com/kwesfcnr"},{"n":"Coffee Talk @ SXSW","d":"Sat Mar 14","t":"8:30 AM – 11:30 AM","l":"Jo's Coffee – Downtown, 242 W 2nd St, Austin, TX 78701, USA","ds":"","c":"Food, Drink & Culinary","f":"Free","u":"https://luma.com/bcv3b3cl"},{"n":"Coffee Without Limits: An Exclusive Evening of Innovation","d":"Sat Mar 14","t":"5:30 PM – 6:45 PM","l":"Austin, Texas","ds":"","c":"Wellness & Healthtech","f":"Free","u":"https://luma.com/keurig-drpepper-sxsw-2026"},{"n":"Companion Presents: In Good Company","d":"Sat Mar 14","t":"7:00 PM - 11:00 PM","l":"SKYBOX on 6th, 501 W 6th St, 4th Floor","ds":"An evening of live performances and storytelling featuring Andy Grammer and Penn Badgley.","c":"Music & Nightlife","f":"Free","u":"https://partiful.com/e/Fw7J1kdWRaIqFv54DbqT"},{"n":"Creator Exec Event for SXSW | by RockWater","d":"Sat Mar 14","t":"5:30 PM – 8:00 PM","l":"The Eleanor, 307 W 5th St, Austin, TX 78701, USA","ds":"","c":"Creator Economy","f":"Free","u":"https://luma.com/pf4dxzg8"},{"n":"Creator House by Aura","d":"Sat Mar 14","t":"10:00 AM – 6:00 PM","l":"Austin, Texas","ds":"","c":"Creator Economy","f":"Free","u":"https://luma.com/oow4jh38"},{"n":"Defense Tech Happy Hour - Powered by J.P. Morgan and Orrick","d":"Sat Mar 14","t":"4:00 PM – 6:30 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/dl4us3n8"},{"n":"DreamFest","d":"Sat Mar 14","t":"3:00 PM - 9:00 PM","l":"Factory on 5th","ds":"A vibrant artist-first festival featuring live performances, taste tests, vendors, and creative showcases.","c":"Art, Culture & Community","f":"Free","u":"https://www.eventbrite.com/e/dreamfest-at-sxsw-tickets-1980317124829"},{"n":"Female Quotient Lounge (FQ Lounge)","d":"Sat Mar 14","t":"All day","l":"Waller Creek Boathouse, 74 Trinity St","ds":"A creative collision space where innovators, creators, and leaders gather for cultural conversations.","c":"Women, DEI & Social Impact","f":"Free","u":"https://events.thefemalequotient.com/sxsw26/invite"},{"n":"Fireside Chat with Michael Seckler, CEO at Justworks","d":"Sat Mar 14","t":"11:00 AM – 1:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/t6h663yb"},{"n":"Flourish 2026 | Hosted by the Young Women's Alliance","d":"Sat Mar 14","t":"6:30 PM","l":"Etter-Harbin Alumni Center, The Drag, Austin, TX","ds":"Scholarship fundraiser and leadership event","c":"Women, DEI & Social Impact","f":"Paid","u":"https://www.eventbrite.com/e/flourish-2026-hosted-by-the-young-womens-alliance-tickets-1981819564667"},{"n":"Founder Fest Austin","d":"Sat Mar 14","t":"11:00 AM - 5:00 PM","l":"","ds":"Festival for founders featuring networking, panels, and community building.","c":"Startups & VC","f":"Paid","u":"https://luma.com/founder-fest"},{"n":"Founder Happy Hour at SXSW","d":"Sat Mar 14","t":"3:00 PM – 6:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/4ya80z7n"},{"n":"Founders & Funders Breakfast (Microsoft, LinkedIn, Mac Venture Capital)","d":"Sat Mar 14","t":"11:00 AM - 1:00 PM","l":"","ds":"Breakfast event co-hosted by Microsoft, LinkedIn, and Mac Venture Capital.","c":"Startups & VC","f":"Free","u":"https://luma.com/qt1zbrf8"},{"n":"Frontiers of Innovation Day","d":"Sat Mar 14","t":"","l":"Austin, TX","ds":"Tech and startup innovation event during SXSW","c":"Startups & VC","f":"Free","u":"https://luma.com/60jxtyi9"},{"n":"Future POD during SXSW","d":"Sat Mar 14","t":"11:00 AM – 6:30 PM","l":"Lighthouse Solar, 2000 S 7th St, Austin, TX 78704, USA","ds":"","c":"Creator Economy","f":"Free","u":"https://luma.com/futurepod"},{"n":"Gay Men Speed Dating Austin | Fancy a Go? | Singles Event","d":"Sat Mar 14","t":"5:00 PM","l":"Higbie's, Congress Ave District, Austin, TX","ds":"Speed dating event for gay men","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/gay-men-speed-dating-austin-fancy-a-go-singles-event-tickets-1982477445406"},{"n":"Going BIG in Texas - Slovak House","d":"Sat Mar 14","t":"12:00 PM - 8:00 PM","l":"Q-Branch","ds":"Slovak House activation showcasing Slovak innovation in Texas.","c":"International & Country Houses","f":"Free","u":"https://luma.com/SlovakHouse"},{"n":"Green With Envy Murder Mystery Party at the Speakeasy","d":"Sat Mar 14","t":"8:00 PM","l":"Mama Merlot's Speakeasy, Austin, TX","ds":"Solve a murder mystery while sipping cocktails in speakeasy vibes","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/green-with-envy-murder-mystery-party-at-the-speakeasy-tickets-1981597725139"},{"n":"Join Soap & Glory, Tula, and Fluffi  for Inclusivity in Beauty Panel + Mixer at SXSW","d":"Sat Mar 14","t":"4:30 PM – 6:30 PM","l":"Soho House Austin, 1011 S Congress Ave Building 2, Suite 100, Austin, TX 78704, USA","ds":"","c":"Women, DEI & Social Impact","f":"Free","u":"https://luma.com/hwcj45u4"},{"n":"JVN Hair Masterclass w/ founder Jonathan Van Ness @ Ulta Austin","d":"Sat Mar 14","t":"9:00 AM","l":"Ulta Beauty, Pleasant View, Austin, TX","ds":"Hair masterclass with JVN founder Jonathan Van Ness","c":"Wellness & Healthtech","f":"Paid","u":"https://www.eventbrite.com/e/jvn-hair-masterclass-w-founder-jonathan-van-ness-ulta-austin-tickets-1983976382768"},{"n":"Kiss Me, I'm Irish: Austin St. Patrick's Day Bar Crawl (2 Days)","d":"Sat Mar 14","t":"2:00 PM","l":"Happy Chicks, 214 E 6th St, Austin, TX 78701","ds":"Barcrawlerz St. Patrick's Weekend bar crawl","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/kiss-me-im-irish-austin-st-patricks-day-bar-crawl-2-days-tickets-1979674576951"},{"n":"La French Touch Rendez Vous 2026","d":"Sat Mar 14","t":"","l":"Austin, TX","ds":"French innovation and startup showcase during SXSW","c":"Startups & VC","f":"Free","u":"https://evenements.bpifrance.fr/e/french-touch-rendez-vous-2026/fr"},{"n":"Luma & AWS Present SXAI: From Prompt Till Post | Special Guest Robert Rodriguez","d":"Sat Mar 14","t":"10:30 AM – 4:00 PM","l":"Troublemaker Studios, 4900 Old Manor Rd, Austin, TX 78723, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/z28pqdjv"},{"n":"M for Mothland + Project Nowhere official showcases","d":"Sat Mar 14","t":"8:00 PM","l":"Swan Dive, Swedish Hill Historic District, Austin, TX","ds":"Music showcases featuring featured artists","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.ca/e/m-for-mothland-project-nowhere-official-showcases-tickets-1982033707173"},{"n":"Manychat Networking Meetup - Austin 2026","d":"Sat Mar 14","t":"3:00 PM","l":"daydreamer, Pershing, Austin, TX","ds":"Professional networking meetup","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/manychat-networking-meetup-austin-2026-tickets-1984302917442"},{"n":"Minnesota Nice Meetup @ SXSW","d":"Sat Mar 14","t":"8:00 AM – 10:30 AM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/jv402h03"},{"n":"Munich Haus @SXSW: Connecting Hubs Oktoberfest-style","d":"Sat Mar 14","t":"11:00 AM – 6:00 PM","l":"German-Texan Heritage Society, 507 E 10th St, Austin, TX 78701, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/3kyr8lif"},{"n":"Nappr x Bubbl x Flex-N-Fly Present: SXSW Future of Travel Wellness!","d":"Sat Mar 14","t":"3:00 PM – 6:00 PM","l":"Little Woodrow's West 6th, 520 W 6th St, Austin, TX 78701, USA","ds":"","c":"Wellness & Healthtech","f":"Free","u":"https://luma.com/knoulsj1"},{"n":"OpenClaw Austin: Builders & Beers @ Mort Subite","d":"Sat Mar 14","t":"4:30 PM – 7:00 PM","l":"Mort Subite European Bar, 308 Congress Ave., Austin, TX 78701, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/ufkpm3ft"},{"n":"Outlook 2026: Secondary is Primary","d":"Sat Mar 14","t":"","l":"","ds":"Event focused on secondary market investment strategies.","c":"Startups & VC","f":"Free","u":"https://docs.google.com/forms/d/e/1FAIpQLSf1624ZrP_oYnRaXORbz1xc0qHPn94dQMQjrEtfqLVQWe8NPA/viewform"},{"n":"Pennsylvania Alumni Happy Hour","d":"Sat Mar 14","t":"5:00 PM – 7:00 PM","l":"Half Step, 75 1/2 Rainey St, Austin, TX 78701, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/8ftimrc7"},{"n":"Pi Day 5K Virtual Race 2026 - 3.14 Miles & Wooden Medal","d":"Sat Mar 14","t":"1:00 PM","l":"Congress Ave District, Austin, TX","ds":"Virtual 3.14-mile running event with wooden medal awards","c":"Exercise & Fitness","f":"Paid","u":"https://www.eventbrite.com/e/pi-day-5k-virtual-race-2026-314-miles-wooden-medal-registration-1984558042528"},{"n":"PODER SUAVE 2026","d":"Sat Mar 14","t":"4:30 PM – 10:30 PM","l":"Gensler, 1011 S Congress Ave Building 1, Suite 200, Austin, TX 78704, USA","ds":"","c":"Art, Culture & Community","f":"Free","u":"https://luma.com/podersuave"},{"n":"Powering Texas with Reliable Integrated High-Demand Energy (Ireland House @ SXSW 2026)","d":"Sat Mar 14","t":"10:00 AM - 12:00 PM","l":"Marlow, 700 E 6th St, Austin, TX 78701","ds":"Panel on Texas grid infrastructure, data center growth, and energy investment. Part of 3rd annual Ireland House @ SXSW. Speakers from CPS Energy, ERCOT, H&MV Engineering, Rhythm Energy. Free.","c":"International & Country Houses","f":"Free","u":"https://luma.com/uyw21acq"},{"n":"PUFF & PASS STAGE","d":"Sat Mar 14","t":"3:00 PM","l":"Pour Choices, 401 East 6th St, Austin, TX 78701","ds":"Music festival featuring hip-hop performances with top executives, artists, and media","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/puff-pass-stage-registration-1982939614767"},{"n":"Qi Gong Event at Upgradelabs 5th street","d":"Sat Mar 14","t":"5:00 PM","l":"Upgrade Labs 5th street, Old West Austin, Austin, TX","ds":"Qi Gong wellness and fitness event","c":"Exercise & Fitness","f":"Paid","u":"https://www.eventbrite.com/e/qi-gong-event-at-upgradelabs-5th-street-tickets-1982370550681"},{"n":"RedThreadX House @ SXSW | The LINE Austin","d":"Sat Mar 14","t":"9:00 AM - 5:00 PM","l":"The LINE Austin, Austin, TX","ds":"Three days of curated content from futurists, tech entrepreneurs, and thought leaders. Topics from lunar data centers to synthetic biology. Includes RedThreadX App with 4,300+ panel tracking. Free.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/u4q9akh7"},{"n":"Righteous Retro Market - SXSW","d":"Sat Mar 14","t":"1:00 PM","l":"The Highball, Zilker, Austin, TX","ds":"Vintage merchandise, media, and apparel from past eras","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/righteous-retro-market-sxsw-tickets-1984657784860"},{"n":"secret austin garden party (hosted by fibe, agree.com & the hustle)","d":"Sat Mar 14","t":"6:00 PM – 9:00 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/secretaustinparty"},{"n":"SHE Media Co-Lab: Whole Life Health","d":"Sat Mar 14","t":"All day","l":"612 E 4th St","ds":"A three-day experience exploring health, wellness, and longevity with speakers including Katie Couric.","c":"Wellness & Healthtech","f":"Free","u":"https://shemedia.swoogo.com/smcolab26/begin"},{"n":"South By South Emo @ Fast Friends","d":"Sat Mar 14","t":"6:00 PM - 11:00 PM","l":"Fast Friends Beer Co., 7313 S I-35 Frontage Road","ds":"A nostalgic emo-themed throwdown featuring live emo hits, local beer, and a tattoo booth. All ages.","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/south-by-south-emo-fast-friends-registration-1981533826015"},{"n":"Space House @ SXSW 2026","d":"Sat Mar 14","t":"10:00 AM","l":"201 E 5th St., South Congress, Austin, TX","ds":"Space House venue event during SXSW","c":"AI & Emerging Tech","f":"Paid","u":"https://www.eventbrite.com/e/space-house-sxsw-2026-tickets-1983032882734"},{"n":"Spring 2026 UWC Graduate Writing Retreat","d":"Sat Mar 14","t":"10:00 AM","l":"The Perry-Castaneda Library, The Drag, Austin, TX","ds":"Graduate writing retreat workshop","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/spring-2026-uwc-graduate-writing-retreat-tickets-1983787265112"},{"n":"SXSW 2nd Saturday Sip & Stroll at Austin's Largest Art Studio Collective","d":"Sat Mar 14","t":"1:00 PM","l":"Art For The People Gallery, Austin, TX","ds":"Explore open studios of 99+ local artists during Second Saturday event","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/sxsw-2nd-saturday-sip-stroll-at-austins-largest-art-studio-collective-tickets-1984651105883"},{"n":"SXSW Afrobeats Party!","d":"Sat Mar 14","t":"6:00 PM - 11:30 PM","l":"Austin, TX (register to see address)","ds":"Evening bringing together founders, investors, creatives, and professionals. Live performances, DJs, games, giveaways, networking around Afrobeats music. Hosted by Travelbay. $22.","c":"Music & Nightlife","f":"Paid","u":"https://luma.com/angggski"},{"n":"SXSW Expo: International Innovations","d":"Sat Mar 14","t":"9:00 AM - 4:00 PM","l":"Manchester Ballroom, Fairmont","ds":"A showcase of global exhibitors across tech, design, entertainment, health, and social good. Hundreds of exhibitors.","c":"AI & Emerging Tech","f":"Free","u":"https://schedule.sxsw.com/2026/events/OE46329"},{"n":"SXSW Superhuman Suite @ Antone's","d":"Sat Mar 14","t":"10:00 AM – 10:00 PM","l":"Antone's Nightclub, 305 E 5th St., Austin, TX 78701, USA","ds":"","c":"Music & Nightlife","f":"Free","u":"https://luma.com/vxff43hf"},{"n":"Tech Insights '26 Brunch","d":"Sat Mar 14","t":"11:00 AM – 1:00 PM","l":"Upstairs at Caroline, 109 E 7th St, Austin, TX 78701, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/lm6h3idr"},{"n":"Tennessee House: Nooga in the Morning, Nash at Night","d":"Sat Mar 14","t":"10:00 AM – 11:00 PM","l":"Electric Shuffle Austin, 91 Red River St STE 102, Austin, TX 78701, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/tn.house.saturday"},{"n":"Textiles: The History and Methods Behind Fiber Based Arts","d":"Sat Mar 14","t":"12:00 PM","l":"Susanna Dickinson Museum, Convention Center District, Austin, TX","ds":"Educational workshop on textile arts history and fiber-based artistic techniques","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/textiles-the-history-and-methods-behind-fiber-based-arts-tickets-1978329466690"},{"n":"The Board Walks SXSW Brand Experience","d":"Sat Mar 14","t":"","l":"Austin, TX","ds":"Brand experience activation during SXSW","c":"Networking & Happy Hours","f":"Free","u":"https://theboardwalks.com/"},{"n":"The Future of Protein Forum","d":"Sat Mar 14","t":"1:00 PM – 4:00 PM","l":"Austin, Texas","ds":"","c":"Food, Drink & Culinary","f":"Free","u":"https://luma.com/meat-institute-sxsw-2026"},{"n":"UKHOUSE @ SXSW: AI for Science - How the UK & US Are Building the Future of Discovery","d":"Sat Mar 14","t":"12:00 PM – 1:00 PM","l":"Austin, Texas","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/xfqv2itr"},{"n":"VC Brunch","d":"Sat Mar 14","t":"10:00 AM - 1:00 PM","l":"","ds":"Brunch for VCs and venture capital professionals.","c":"Startups & VC","f":"Free","u":"https://gatsby.events/capital-factory/rsvp/register?e=vc-brunch-2026"},{"n":"Weißwurst & Watch Party: Bavarian Breakfast @Munich Haus","d":"Sat Mar 14","t":"9:00 AM – 12:00 PM","l":"German-Texan Heritage Society, 507 E 10th St, Austin, TX 78701, USA","ds":"","c":"Food, Drink & Culinary","f":"Free","u":"https://luma.com/g4n7m36g"},{"n":"2026 KOOP Radio Day Party at SXSW","d":"Sun Mar 15","t":"","l":"Austin, TX","ds":"KOOP Radio's annual day party during SXSW","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/2026-koop-radio-day-party-tickets-1982997704515"},{"n":"5th Annual ATX Game Makers Showcase and Arcade","d":"Sun Mar 15","t":"10:00 AM","l":"RichesArt Gallery, Iglehart, Austin, TX","ds":"Showcase of local game studios with playable games and free food","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/5th-annual-atx-game-makers-showcase-and-arcade-tickets-273791005267"},{"n":"AI Market Foresight: Live Simulation","d":"Sun Mar 15","t":"10:30 AM - 2:00 PM","l":"Downtown Austin (address provided upon approval)","ds":"A strategy event where attendees submit scenarios to be modeled in a live AI market simulation.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/aisimulation"},{"n":"Around the World, with Justworks","d":"Sun Mar 15","t":"12:00 PM - 5:00 PM","l":"","ds":"Global-themed event hosted by Justworks.","c":"International & Country Houses","f":"Free","u":"https://justworks.swoogo.com/AroundTheWorldwithJW"},{"n":"Austin Speed Networking | NetworkNite | Business Professionals Event","d":"Sun Mar 15","t":"4:00 PM","l":"Azul Rooftop, Congress Ave District, Austin, TX","ds":"Professional networking event for business connections","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/austin-speed-networking-networknite-business-professionals-event-tickets-1982484837516"},{"n":"Austin Sunday Wake Up Call (Series A+ Founders + VCs Only)","d":"Sun Mar 15","t":"9:00 AM – 11:00 AM","l":"Bathe, 2922 E Cesar Chavez St, Austin, TX 78702, USA","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/4b9x0ct2"},{"n":"Beats x Beers during SXSW 2026","d":"Sun Mar 15","t":"","l":"Austin, TX","ds":"Music and beer event during SXSW","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/beats-x-beers-tickets-1979892628148"},{"n":"Born Loser Magazine SXSW Showcase","d":"Sun Mar 15","t":"12:00 PM","l":"CHESS CLUB, Swedish Hill Historic District, Austin, TX","ds":"Born Loser Magazine showcase event","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/born-loser-magazine-sxsw-showcase-tickets-1984436881131"},{"n":"Capital of Creators, hosted by TL;DR","d":"Sun Mar 15","t":"6:30 PM – 10:30 PM","l":"Austin, Texas","ds":"","c":"Creator Economy","f":"Free","u":"https://luma.com/5rco2shh"},{"n":"Claim Your Desire - SXSW (unofficial)","d":"Sun Mar 15","t":"4:15 PM","l":"Upgrade Labs 5th street, Old West Austin, Austin, TX","ds":"Desire-focused experience event during SXSW","c":"Wellness & Healthtech","f":"Paid","u":"https://www.eventbrite.com/e/claim-your-desire-sxsw-unofficial-tickets-1983983144994"},{"n":"Cloudflare + Deepgram Party","d":"Sun Mar 15","t":"7:00 PM – 2:00 AM","l":"Kitty Cohen's, 2211 Webberville Rd #3548, Austin, TX 78702, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/unr114mi"},{"n":"Community Concerts at Lady Bird Lake","d":"Sun Mar 15","t":"","l":"Lady Bird Lake","ds":"Relax by the shores with skyline views and live performances.","c":"Music & Nightlife","f":"Free","u":"https://sxsw.com/festivals/music/community-concerts/"},{"n":"Creator Gold Live at SXSW: The Creator Economy Community Experience","d":"Sun Mar 15","t":"12:00 PM – 5:30 PM","l":"Austin, TX, USA","ds":"","c":"Creator Economy","f":"Free","u":"https://luma.com/euktoi6u"},{"n":"Crowdstake @ SX 2026","d":"Sun Mar 15","t":"4:00 PM – 7:00 PM","l":"Mort Subite European Bar, 308 Congress Ave., Austin, TX 78701, USA","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/56acre42"},{"n":"Design House","d":"Sun Mar 15","t":"","l":"Austin, TX","ds":"Design-focused event house during SXSW","c":"Art, Culture & Community","f":"Free","u":"https://designhouseatx.com/"},{"n":"Drinks on James (SXSW)","d":"Sun Mar 15","t":"4:00 PM – 7:00 PM","l":"Mort Subite European Bar, 308 Congress Ave., Austin, TX 78701, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/ksngov2z"},{"n":"Emerging Managers + Founding GPs Omakase","d":"Sun Mar 15","t":"6:00 PM - 9:00 PM","l":"","ds":"Dinner event for emerging fund managers and founding general partners.","c":"Startups & VC","f":"Free","u":"https://luma.com/njj07v0h"},{"n":"FOCUS Wales at SXSW 2026","d":"Sun Mar 15","t":"7:30 PM","l":"Swan Dive, Swedish Hill Historic District, Austin, TX","ds":"FOCUS Wales showcase event","c":"International & Country Houses","f":"Paid","u":"https://www.eventbrite.co.uk/e/focus-wales-at-sxsw-2026-tickets-1982835145296"},{"n":"From Raise to Reality: Lessons from Recent Series A Founders (HubSpot for Startups & Silverton Partners | SXSW 2026)","d":"Sun Mar 15","t":"4:00 PM - 6:30 PM","l":"Soho House Austin, Austin, TX","ds":"Invite-only founder-focused panel. Three Austin-based founders share post-Series A insights. Networking with beverages and light food. No SXSW badge required. Free.","c":"Startups & VC","f":"Free","u":"https://luma.com/glbmqm6u"},{"n":"Future Summit","d":"Sun Mar 15","t":"","l":"","ds":"Keynotes with Hayley Williams and Jonathan Van Ness plus music and shopping.","c":"Art, Culture & Community","f":"Free","u":"https://www.createcultivate.com/futuresummit"},{"n":"GenJam: Use AI tools to create a Short Film! @ RTX House @SXSW 2026","d":"Sun Mar 15","t":"6:30 PM – 9:00 PM","l":"The LINE Austin, 111 E Cesar Chavez St, Austin, TX 78701, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/5r8qycf5"},{"n":"Hit Pause at SXSW 2026 with Yahoo x Axios Communicators","d":"Sun Mar 15","t":"","l":"Austin, TX","ds":"Yahoo and Axios communicators event during SXSW","c":"Film, Media & Journalism","f":"Free","u":"https://hitpausesxswyahooaxios.splashthat.com"},{"n":"House of Wellness | Unofficial SXSW Event","d":"Sun Mar 15","t":"10:00 AM","l":"AWKN Ranch, 7600 Stillridge Drive, Austin, TX 78736","ds":"Full-day wellness immersion during SXSW weekend","c":"Wellness & Healthtech","f":"Paid","u":"https://www.eventbrite.com/e/house-of-wellness-unofficial-sxsw-event-tickets-1982455181815"},{"n":"INDI VIBES #AUSTIN After Party Showcase","d":"Sun Mar 15","t":"10:00 PM","l":"1303 E 4th St, East Cesar Chavez, Austin, TX","ds":"Live music experience with indie artists performing downtown","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/indi-vibes-austin-after-party-showcase-tickets-1983367658056"},{"n":"INDI VIBES AUSTIN 2026 EARLY BIRD ARTIST SLOTS AVAILABLE!","d":"Sun Mar 15","t":"10:00 PM","l":"1303 E 4th St, Austin, TX (East Cesar Chavez)","ds":"Independent artist showcase on iconic 6th Street","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/indi-vibes-austin-2026-early-bird-artist-slots-available-tickets-1968205784484"},{"n":"Josh Tickell: Cinematic Storytelling as a Lever for Change","d":"Sun Mar 15","t":"7:00 PM – 8:30 PM","l":"Austin, Texas","ds":"","c":"Film, Media & Journalism","f":"Free","u":"https://luma.com/cinematic-storytelling-sxsw-2026"},{"n":"Just Southwest of Official","d":"Sun Mar 15","t":"","l":"Better Half Coffee & Cocktails","ds":"Free photo booth, live music, vendor market, and flash tattoos.","c":"Art, Culture & Community","f":"Free","u":"https://partiful.com/e/necWPNdp0ZY6CIlQ32K8"},{"n":"Kindred Austin: SXSW Panel with Co-Founder & CEO Justine Palefsky [SXSW Pass Required]","d":"Sun Mar 15","t":"11:30 AM – 12:30 PM","l":"Austin, Texas","ds":"","c":"Wellness & Healthtech","f":"Free","u":"https://luma.com/9uzzjuxi"},{"n":"London Calling: Where pioneering ideas meet business opportunities","d":"Sun Mar 15","t":"4:00 PM – 7:00 PM","l":"Hanghart, 208 W 4th St unit d, Austin, TX 78701, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/rd044u94"},{"n":"Mid-Day Refresh Lounge with City + Stars and Mackenzie-Childs","d":"Sun Mar 15","t":"11:00 AM","l":"City and Stars, West End, Austin, TX","ds":"Daytime refresh lounge event","c":"Wellness & Healthtech","f":"Paid","u":"https://www.eventbrite.com/e/mid-day-refresh-lounge-with-city-stars-and-mackenzie-childs-tickets-1984678112661"},{"n":"NachoTuesday: Austin SaaS & AI Founder + Investor Happy Hour","d":"Sun Mar 15","t":"5:00 PM - 8:00 PM","l":"Downtown Austin (address provided upon approval)","ds":"An exclusive happy hour for SaaS and AI founders, C-suite leaders, investors, and tech media.","c":"Startups & VC","f":"Free","u":"https://luma.com/wddaow8l"},{"n":"New Dutch Wave @ Preacher","d":"Sun Mar 15","t":"3:30 PM – 9:30 PM","l":"Preacher, 205 E Riverside Dr Suite 110, Austin, TX 78704, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/i4nsz3gx"},{"n":"Non-Obvious SX South Asian Meetup @SXSW","d":"Sun Mar 15","t":"5:30 PM – 7:30 PM","l":"Austin, Texas","ds":"","c":"Art, Culture & Community","f":"Free","u":"https://luma.com/asan-sxsw-0326"},{"n":"Pinoy Potluck (Unofficial) SXSW Block Party","d":"Sun Mar 15","t":"3:00 PM","l":"Kenny Dorham's Backyard - Diverse Arts, 1106 East 11th Street, Austin, TX 78702","ds":"4th Annual SXSW block party celebration","c":"Art, Culture & Community","f":"Free","u":"https://www.eventbrite.com/e/pinoy-potluck-unofficial-sxsw-block-party-tickets-1984444570129"},{"n":"Renossaince: The Renowned Renaissance Faire","d":"Sun Mar 15","t":"12:00 PM – 10:00 PM","l":"The Far Out Lounge & Stage, 8504 S Congress Ave, Austin, TX 78745, USA","ds":"","c":"Art, Culture & Community","f":"Free","u":"https://luma.com/renfaire"},{"n":"REVOLT House Austin 2026","d":"Sun Mar 15","t":"7:00 PM – 11:00 PM","l":"Vulcan Gas Company, 418 E 6th St, Austin, TX 78701, USA","ds":"","c":"Music & Nightlife","f":"Free","u":"https://luma.com/revolthouse-Austin-2026"},{"n":"Selection Sunday March Madness","d":"Sun Mar 15","t":"11:30 AM","l":"BBG'S, Austin, TX","ds":"March Madness viewing event","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/selection-sunday-march-madness-tickets-1984512572526"},{"n":"Springboard Enterprises Community Brunch","d":"Sun Mar 15","t":"","l":"Austin, TX","ds":"Springboard Enterprises community brunch during SXSW","c":"Women, DEI & Social Impact","f":"Free","u":"https://sb.co/events-calendar/"},{"n":"Springdale Station 10 Year Anniversary Party","d":"Sun Mar 15","t":"2:00 PM","l":"Springdale Station, Govalle, Austin, TX","ds":"Celebration of Springdale Station's 10-year milestone","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/springdale-station-10-year-anniversary-party-tickets-1983163039035"},{"n":"St.Patrick's Day Bingo & Brunch at the Speakeasy","d":"Sun Mar 15","t":"10:00 AM","l":"Mama Merlot's Speakeasy, Austin, TX","ds":"St. Patrick's Day celebration with bingo and brunch","c":"Food, Drink & Culinary","f":"Paid","u":"https://www.eventbrite.com/e/stpatricks-day-bingo-brunch-at-the-speakeasy-tickets-1981350226865"},{"n":"Stretch Goals Yoga Networking - SXSW CPG Founder Event","d":"Sun Mar 15","t":"","l":"Austin, TX","ds":"Yoga and networking event for CPG founders, hosted by KPMG","c":"Exercise & Fitness","f":"Free","u":"https://events-meetings.kpmg.com/event/X7NG88LG72G/summary"},{"n":"Suck the Head Sunday | SXSW Crawfish Boil & Day Party","d":"Sun Mar 15","t":"11:00 AM","l":"Victory East, 1104 East 11th Street, Austin, TX 78702","ds":"Crawfish boil and day party with DJ","c":"Food, Drink & Culinary","f":"Free","u":"https://www.eventbrite.com/e/suck-the-head-sunday-sxsw-crawfish-boil-day-party-tickets-1984438998464"},{"n":"Sun. Sweat. Social. SXSW Outdoor Workout with SWEAT440","d":"Sun Mar 15","t":"11:00 AM","l":"South River City, Austin, TX","ds":"Outdoor fitness workout class","c":"Exercise & Fitness","f":"Paid","u":"https://www.eventbrite.com/e/sun-sweat-social-sxsw-outdoor-workout-with-sweat440-tickets-1984377668023"},{"n":"Superhuman for Startups Breakfast & Panel @ SXSW","d":"Sun Mar 15","t":"10:00 AM - 12:15 PM","l":"Antone's Nightclub, 305 E 5th St, Austin, TX 78701","ds":"Early-stage startup founders gather for breakfast networking (10-11:15 AM) and panel 'Rebuilding the Startup Operating System With AI' (11:15 AM-12:15 PM). Panelists from Figure, Vercel, Function Heal","c":"Startups & VC","f":"Free","u":"https://luma.com/4y0z5r6j"},{"n":"Superhuman Hang @ SXSW","d":"Sun Mar 15","t":"4:00 PM - 5:30 PM","l":"Antone's Nightclub, 305 E 5th St, Austin, TX 78701","ds":"Community gathering for Superhuman users. Complimentary beverages, snacks, DJ music, and branded merchandise. Free but event full/waitlist. Capacity: 150.","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/2e1g9wr9"},{"n":"SXSW AFTERGLOW - Unofficial SXSW Closing Party","d":"Sun Mar 15","t":"8:00 PM - 1:00 AM","l":"Cabana Club - East Austin Oasis, 5012 E 7th St, Austin, TX 78702","ds":"Underground house music event as unofficial SXSW closing celebration. Features DJs from FlowATX and House of Estonia. $20.","c":"Music & Nightlife","f":"Free","u":"https://luma.com/lycvwf6l"},{"n":"SXSW Coaches Happy Hour","d":"Sun Mar 15","t":"1:00 PM – 4:00 PM","l":"Loro Asian Smokehouse & Bar, 2115 S Lamar Blvd, Austin, TX 78704, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/465aakzv"},{"n":"SXSW Community Concert","d":"Sun Mar 15","t":"","l":"Austin, TX","ds":"Official SXSW community concert - free and open to the public","c":"Music & Nightlife","f":"Free","u":"https://sxsw.com/attend/"},{"n":"SXSW Real Estate Forum - PropTech Construction AI Showcase","d":"Sun Mar 15","t":"","l":"Austin, TX","ds":"Real estate and construction tech AI showcase during SXSW","c":"AI & Emerging Tech","f":"Free","u":"https://www.eventbrite.com/e/sxsw-real-estate-forum-proptech-construction-ai-showcase-tickets-1981495734081"},{"n":"Teachable Sunset Sail @ SXSW","d":"Sun Mar 15","t":"6:30 PM – 9:30 PM","l":"3825 Lake Austin Blvd, Austin, TX 78703, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/znuxkvmw"},{"n":"Tech Carnival","d":"Sun Mar 15","t":"7:00 PM - 11:00 PM","l":"","ds":"Carnival-themed tech event with entertainment and networking.","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/ohk51ec9"},{"n":"Tennessee House: Power Up with Knoxville & Oak Ridge, then Meet Memphis","d":"Sun Mar 15","t":"10:00 AM – 10:00 PM","l":"Electric Shuffle Austin, 91 Red River St STE 102, Austin, TX 78701, USA","ds":"","c":"International & Country Houses","f":"Free","u":"https://luma.com/tn.house.sunday"},{"n":"The Music Industry Meetup at SXSW 2026 by Balanced Breakfast","d":"Sun Mar 15","t":"","l":"Austin, TX","ds":"Music industry networking meetup during SXSW","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/the-music-industry-meetup-2026-by-balanced-breakfast-during-sxsw-tickets-1982910721346"},{"n":"XR Experience","d":"Sun Mar 15","t":"","l":"Congressional Ballroom, Fairmont","ds":"Extended reality experience showcase at SXSW.","c":"AI & Emerging Tech","f":"Free","u":"https://sxsw.com/exhibitions/sxsw-xr-experience/"},{"n":"Yahoo at SXSW","d":"Sun Mar 15","t":"12:00 PM - 8:00 PM","l":"Historic Scoot Inn","ds":"A full day of music, snacks, margaritas, games, and interactive experiences curated by Yahoo Scout.","c":"Music & Nightlife","f":"Free","u":"https://www.yahooinc.com/sxsw"},{"n":"16th March ATX Side event - AI for SaaS goes Authentic Sauna","d":"Mon Mar 16","t":"3:00 PM – 5:00 PM","l":"Bathe, 2922 E Cesar Chavez St, Austin, TX 78702, USA","ds":"","c":"Wellness & Healthtech","f":"Free","u":"https://luma.com/f3prlsly"},{"n":"A Day of Culture, Connection & Growth - WOLF CONNECT SXSW 2026","d":"Mon Mar 16","t":"1:00 PM - 7:00 PM","l":"Umlauf Sculpture Garden + Museum, Austin, TX","ds":"Community event with panels, live art, music, and brand activations. Panels on brands, art/culture, e-commerce, marketing tech. Wolf Garden free, Wolf Circle networking $40. ~1,000 expected attendees.","c":"Art, Culture & Community","f":"Free","u":"https://luma.com/wolf-connect-sxsw-2026"},{"n":"AI for Operations and Cybersecurity (Online/In-person)","d":"Mon Mar 16","t":"5:30 PM","l":"BCL of Texas Austin headquarters, Downtown, Austin, TX","ds":"Educational seminar on AI applications in operations and cybersecurity","c":"AI & Emerging Tech","f":"Paid","u":"https://www.eventbrite.com/e/ai-for-operations-and-cybersecurity-onlinein-person-tickets-1982700551723"},{"n":"AI x Journalism Day 2026","d":"Mon Mar 16","t":"9:30 AM - 6:00 PM","l":"Austin, TX (register to see address)","ds":"Exploring how AI transforms news creation and distribution. Topics include public media AI adoption, community moderation, platform accountability. By Hacks/Hackers and Poynter Institute, supported by","c":"Film, Media & Journalism","f":"Free","u":"https://luma.com/hh-ai-journalism-day-2026-austin"},{"n":"Apify AI + GTM roadshow: Austin","d":"Mon Mar 16","t":"9:45 AM – 12:00 PM","l":"Antler VC, 800 Brazos St #340, Austin, TX 78701, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/wtrz4mle"},{"n":"B2B HAUS at SXSW","d":"Mon Mar 16","t":"9:00 AM – 7:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/zcugak8f"},{"n":"Common Ground","d":"Mon Mar 16","t":"12:00 PM – 4:00 PM","l":"2055 S Lamar Blvd, Austin, TX 78704, USA","ds":"","c":"Art, Culture & Community","f":"Free","u":"https://luma.com/4smqergu"},{"n":"Culture Connection and Growth SXSW","d":"Mon Mar 16","t":"","l":"Austin, TX","ds":"Culture, connection and growth event during SXSW","c":"Art, Culture & Community","f":"Free","u":"https://www.eventbrite.com/e/culture-connection-and-growth-sxsw-2026-tickets-1983089012345"},{"n":"Deep Tech and Hardware Expo","d":"Mon Mar 16","t":"4:00 PM – 7:00 PM","l":"Austin, Texas","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/4b1xy177"},{"n":"Down South Urban","d":"Mon Mar 16","t":"7:00 PM","l":"Tellers Austin, Convention Center District, Austin, TX","ds":"Urban music and entertainment event","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/down-south-urban-tickets-1984078217358"},{"n":"FloSports SXSW Happy Hour","d":"Mon Mar 16","t":"4:00 PM – 7:00 PM","l":"FloSports, 301 Congress Ave. # 1500, Austin, TX 78701, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/9rrc7f1z"},{"n":"Founded in Texas: For Women Founders","d":"Mon Mar 16","t":"9:00 AM - 12:30 PM","l":"Brown Advisory, 200 W 6th St, Suite 1700","ds":"A morning program and brunch designed for women founders with networking and investor conversations.","c":"Women, DEI & Social Impact","f":"Free","u":"https://dwtevents.com/foundedintexas/"},{"n":"Hardware Garage Party","d":"Mon Mar 16","t":"6:00 PM – 11:00 PM","l":"Austin, Texas","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/9n5lq3wd"},{"n":"Humble Ventures: The Future of Health","d":"Mon Mar 16","t":"11:00 AM","l":"","ds":"Event focused on the future of health innovation.","c":"Wellness & Healthtech","f":"Free","u":"https://luma.com/79uagf6k"},{"n":"I Hate Mondays Day Party @SXSW2026","d":"Mon Mar 16","t":"4:00 PM","l":"Delilah's Front Porch, Govalle, Austin, TX","ds":"Monday day party during SXSW","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/i-hate-mondays-day-party-sxsw2026-tickets-1984246738409"},{"n":"Marshall: Live From Mohawk","d":"Mon Mar 16","t":"","l":"Mohawk","ds":"Waterloo Records popup with live screen printing and free merchandise.","c":"Art, Culture & Community","f":"Free","u":"https://www.etix.com/ticket/p/33246312/marshall-day-party-austin-resound-presents"},{"n":"Microsoft for Startups: Founder x Funder Dinner","d":"Mon Mar 16","t":"5:00 PM - 7:30 PM","l":"","ds":"Dinner event connecting founders with funders, hosted by Microsoft for Startups.","c":"Startups & VC","f":"Free","u":"https://luma.com/ig3nyeww"},{"n":"Miro x Replit Hackathon: Plan it. Build it. Ship it.","d":"Mon Mar 16","t":"1:00 PM – 6:00 PM","l":"303 Colorado St, Austin, TX 78701, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/7cv8plqi"},{"n":"Nashville ♥️ Austin","d":"Mon Mar 16","t":"11:00 AM – 3:00 PM","l":"imogene + willie, 1401 S Congress Ave, Austin, TX 78704, USA","ds":"","c":"Art, Culture & Community","f":"Free","u":"https://luma.com/nashville-loves-austin"},{"n":"New Mexico House","d":"Mon Mar 16","t":"All day","l":"The Courtyard ATX","ds":"A full-day immersive activation showcasing New Mexico's cultural roots and deep-tech ecosystem with complimentary food, beverages, and live music.","c":"International & Country Houses","f":"Free","u":"https://www.eventbrite.com/e/new-mexico-house-sxsw-2026-tickets-1982827468334"},{"n":"New Mexico House during SXSW 2026","d":"Mon Mar 16","t":"","l":"Austin, TX","ds":"New Mexico state house activation during SXSW","c":"International & Country Houses","f":"Free","u":"https://www.eventbrite.com/e/new-mexico-house-sxsw-2026-tickets-1983112345678"},{"n":"Our Path Forward: Insights from Austin's Tech Leaders","d":"Mon Mar 16","t":"2:30 PM - 5:00 PM","l":"","ds":"Panel and discussion with Austin tech leaders on the future of the local tech ecosystem.","c":"Startups & VC","f":"Free","u":"https://luma.com/f3ch1cru"},{"n":"Precision Camera & Fujifilm Free Headshots","d":"Mon Mar 16","t":"","l":"Austin, TX","ds":"Free professional headshots by Precision Camera and Fujifilm during SXSW","c":"Art, Culture & Community","f":"Free","u":"https://www.eventbrite.com/e/precision-camera-video-and-fujifilm-presents-free-professional-headshots-tickets-1981960185267"},{"n":"Real Estate Forum: AI, Industrial, PropTech, Construction","d":"Mon Mar 16","t":"2:30 PM – 6:30 PM","l":"Austin, Texas","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/t8x0dcsq"},{"n":"SAUNA LIKE A FINN. Authentic Finnish Sauna Evening - A Reset at SXSW","d":"Mon Mar 16","t":"5:00 PM","l":"Bathe, Iglehart, Austin, TX","ds":"Authentic Finnish sauna evening reset experience","c":"Wellness & Healthtech","f":"Free","u":"https://www.eventbrite.com/e/sauna-like-a-finn-authentic-finnish-sauna-evening-a-reset-at-sxsw-tickets-1980592648929"},{"n":"She Speaks CEO - Powerhouse Women Unite","d":"Mon Mar 16","t":"","l":"Austin, TX","ds":"Women's leadership and empowerment event during SXSW","c":"Women, DEI & Social Impact","f":"Free","u":"https://shespeaksceo.com/events-1/she-speaks-ceo-sxsw-week-powerhouse-women-unite-austin-tx"},{"n":"She Speaks CEO @ SXSW Week: Powerhouse Women Unite","d":"Mon Mar 16","t":"6:00 PM - 8:00 PM","l":"Cabana Club, 5012 East 7th Street","ds":"A curated gathering of women founders, executives, and investors focused on aligned connection.","c":"Women, DEI & Social Impact","f":"Free","u":"https://www.eventbrite.com/e/she-speaks-ceo-sxsw-week-powerhouse-women-unite-austin-tx-tickets-1982421367676"},{"n":"Supabase x Dreambase at SXSW","d":"Mon Mar 16","t":"4:00 PM – 6:00 PM","l":"EAST END BALLROOM, 4715 E 5th St., Austin, TX 78702, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/supasxsw"},{"n":"SXSW CORE CONVOS: Narrative Intelligence - New Leadership Infrastructure","d":"Mon Mar 16","t":"11:30 AM","l":"Hilton Austin Downtown, 500 East 4th Street, Austin, TX 78701","ds":"Explores Narrative Intelligence as practical skill grounded in psychology, SXSW badge holders only","c":"AI & Emerging Tech","f":"Paid","u":"https://www.eventbrite.com/e/sxsw-core-convos-narrative-intelligence-new-leadership-infrastructure-tickets-1984649256351"},{"n":"SXSW: AI Localization Happy Hour","d":"Mon Mar 16","t":"5:30 PM – 9:00 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/pj70xjkb"},{"n":"Texas Real Estate Forum: AI, Industrial, Construction, Proptech","d":"Mon Mar 16","t":"3:00 PM","l":"2801 I-35, Austin, TX","ds":"Real estate industry forum on AI and technology","c":"AI & Emerging Tech","f":"Paid","u":"https://www.eventbrite.com/e/texas-real-estate-forum-ai-industrial-construction-proptech-tickets-1981495734081"},{"n":"The LegalTech AI Boom: Where Are We Now, and Where Are We Going?","d":"Mon Mar 16","t":"3:00 PM – 6:00 PM","l":"Austin, Texas","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/kmtg9hwd"},{"n":"The Rendezvous in ATX 2026","d":"Mon Mar 16","t":"5:00 PM - 1:00 AM","l":"Sahara Lounge, 1413 Webberville Road","ds":"A vibrant urban-eclectic music experience featuring R&B, soul, jazz, funk, Afrobeat, and house rhythms.","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/the-rendezvous-in-atx-2026-tickets-1980316365558"},{"n":"VC Arena: SXSW (Legendary Ventures x MEDC x JustWorks)","d":"Mon Mar 16","t":"1:00 PM - 3:00 PM","l":"","ds":"VC arena event co-hosted by Legendary Ventures, MEDC, and JustWorks.","c":"Startups & VC","f":"Free","u":"https://luma.com/hbu8k62y"},{"n":"VC Village & Augment Present: Let's Get Liquid Investor Happy Hour @SXSW","d":"Mon Mar 16","t":"5:00 PM – 8:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/xxdiqmj6"},{"n":"Velric & UEV: The Founder x Investor War Room","d":"Mon Mar 16","t":"6:00 PM – 8:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/mcu47zkz"},{"n":"AI Ethics Social Club by Maiven Collective and Google","d":"Tue Mar 17","t":"5:00 PM – 7:00 PM","l":"500 W 2nd St, Austin, TX 78701, USA","ds":"","c":"AI & Emerging Tech","f":"Free","u":"https://luma.com/qmzwhj5v"},{"n":"Asia x Austin Summit","d":"Tue Mar 17","t":"12:00 PM - 9:00 PM","l":"","ds":"Summit connecting Asian and Austin tech and business communities.","c":"International & Country Houses","f":"Free","u":"https://members.austinasianchamber.org/events/Details/2026-asia-x-austin-summit-1568018"},{"n":"Asia x Austin Summit 2026","d":"Tue Mar 17","t":"","l":"Austin, TX","ds":"Asia-Austin tech and business summit during SXSW","c":"International & Country Houses","f":"Free","u":"https://www.eventbrite.com/e/asia-x-austin-summit-2026-tickets-1983123456789"},{"n":"AuremIP x SXSW","d":"Tue Mar 17","t":"3:00 PM – 6:00 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/coy5x7os"},{"n":"Austin Official St. Patrick's Day Bar Crawl","d":"Tue Mar 17","t":"5:00 PM","l":"Coyote Ugly Saloon, Convention Center District, Austin, TX","ds":"St. Patrick's Day themed bar crawl","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/austin-official-st-patricks-day-bar-crawl-tickets-1713595543399"},{"n":"Duckpin Bowling & Drinks with Scalafai","d":"Tue Mar 17","t":"6:00 PM – 8:00 PM","l":"Pins Mechanical Co., 4323 S Congress Ave, Austin, TX 78745, USA","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/iypnnttn"},{"n":"Emotional Empowerment for Women: 1 Day Self-Connection Session in Austin","d":"Tue Mar 17","t":"9:00 AM","l":"Regus - Austin, 901 South MoPac Expressway, Austin, TX 78746","ds":"Women's workshop for deepening emotional wisdom and reclaiming inner strength","c":"Women, DEI & Social Impact","f":"Paid","u":"https://www.eventbrite.com/e/emotional-empowerment-for-women-1-day-self-connection-session-in-austin-tickets-1982116779645"},{"n":"Out in Tech Austin | Monthly Mixer 2026","d":"Tue Mar 17","t":"7:00 PM","l":"Cheer Up Charlies, 900 Red River St, Austin, TX 78701","ds":"Community networking event for LGBTQIA professionals in technology","c":"Women, DEI & Social Impact","f":"Paid","u":"https://www.eventbrite.com/e/out-in-tech-austin-monthly-mixer-2026-tickets-1980509483178"},{"n":"Recover + Recharge Closing Party @ SXSW","d":"Tue Mar 17","t":"4:00 PM – 8:00 PM","l":"Bathe, 2922 E Cesar Chavez St, Austin, TX 78702, USA","ds":"","c":"Wellness & Healthtech","f":"Free","u":"https://luma.com/hq3xz20z"},{"n":"Spark Your Flow Fest - An Unofficial SXSW Mini-Fest at Maggie Mae's","d":"Tue Mar 17","t":"10:00 AM","l":"Maggie Mae's, Congress Ave District, Austin, TX","ds":"Unofficial SXSW music festival mini-event","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/spark-your-flow-fest-an-unofficial-sxsw-mini-fest-at-maggie-maes-tickets-1984437312421"},{"n":"St Patrick's Day 2026 @ Kelly's Irish Pub","d":"Tue Mar 17","t":"12:00 AM","l":"Kelly's Irish Pub, West Oltorf St, Austin, TX","ds":"St. Patrick's Day celebration at Irish pub venue","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/st-patricks-day-2026-kellys-irish-pub-tickets-1982688028265"},{"n":"Startup Founder Dinner","d":"Tue Mar 17","t":"7:00 PM – 8:30 PM","l":"Austin, Texas","ds":"","c":"Startups & VC","f":"Free","u":"https://luma.com/StartupFounderDinner2026"},{"n":"SXSFOU","d":"Tue Mar 17","t":"7:00 PM","l":"Cheer Up Charlies, 900 Red River Street, Austin, TX 78701","ds":"One-night clown cabaret rupture from the cast of Fou Fou Ha! Austin","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/sxsfou-tickets-1984642873259"},{"n":"Tech Leaders x SXSW 2026","d":"Tue Mar 17","t":"6:00 PM – 9:00 PM","l":"Austin, Texas","ds":"","c":"Networking & Happy Hours","f":"Free","u":"https://luma.com/ovrwcq5j"},{"n":"The Non Obvious House During SXSW Week","d":"Tue Mar 17","t":"","l":"Austin, TX","ds":"Non Obvious event house during SXSW week","c":"Networking & Happy Hours","f":"Free","u":"https://www.eventbrite.com/e/the-non-obvious-house-during-sxsw-week-in-austin-tickets-1761827586739"},{"n":"Future Skills for 2026: 1 Day Workforce Training, Austin, TX","d":"Wed Mar 18","t":"9:00 AM","l":"Regus, Austin, TX","ds":"Explore skill trends, AI impact, future job demands, and digital transformation","c":"AI & Emerging Tech","f":"Paid","u":"https://www.eventbrite.sg/e/future-skills-for-2026-1-day-workforce-training-austin-tx-tickets-1977696176502"},{"n":"Horizon - 2026 Austin, TX","d":"Wed Mar 18","t":"6:00 PM","l":"Hyatt Regency Austin, Austin, TX","ds":"Conference for HVAC/R, plumbing, and electrical business founders","c":"Startups & VC","f":"Paid","u":"https://www.eventbrite.com/e/horizon-2026-austin-tx-tickets-1918099349789"},{"n":"March 2026 Hump Day Happy Hour","d":"Wed Mar 18","t":"4:00 PM","l":"Moontower Saloon, Ford Oaks, Austin, TX","ds":"March networking happy hour event","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/march-2026-hump-day-happy-hour-tickets-1984467454577"},{"n":"Nikon ATX | Fashion Portraiture","d":"Wed Mar 18","t":"9:30 AM","l":"918 Congress Ave., Austin, TX 78701","ds":"Free photo walk or workshop in Nikon Studio with special guest","c":"Art, Culture & Community","f":"Free","u":"https://www.eventbrite.com/e/nikon-atx-fashion-portraiture-tickets-1983002542987"},{"n":"Record Play: One-Hit Wonders SXSW Edition","d":"Wed Mar 18","t":"2:30 PM","l":"Pershing Hall, 2415C East 5th Street, Austin, TX 78702","ds":"Music trivia with team play, karaoke, and dance battles","c":"Music & Nightlife","f":"Paid","u":"https://www.eventbrite.com/e/record-play-one-hit-wonders-sxsw-edition-tickets-1983663185988"},{"n":"SIP Forward: SXSW EDU Mixer for Education, Nonprofit & Policy Leaders","d":"Wed Mar 18","t":"4:00 PM","l":"506 Congress Ave., 6th Street, Austin, TX","ds":"Professional mixer for education, nonprofit, and policy sector leaders","c":"Networking & Happy Hours","f":"Paid","u":"https://www.eventbrite.com/e/sipforward-sxsw-edu-mixer-for-education-nonprofit-policy-leaders-tickets-1984647806013"},{"n":"SXSW Expo: Emerging Tech","d":"Wed Mar 18","t":"9:00 AM - 4:00 PM","l":"","ds":"A one-day exhibition featuring breakthrough technologies and visionary leaders shaping innovation. Pioneering tech professionals presenting businesses.","c":"AI & Emerging Tech","f":"Free","u":"https://schedule.sxsw.com/2026/events/OE46407"},{"n":"The Artist's Way - Group Session, 12 Week Series","d":"Wed Mar 18","t":"6:15 PM","l":"Central Market, Austin, TX","ds":"12-week group creative development series based on The Artist's Way methodology","c":"Art, Culture & Community","f":"Paid","u":"https://www.eventbrite.com/e/the-artists-way-group-session-12-week-series-tickets-1984500124293"},{"n":"Vinyls and Viddles at the Equipment Room","d":"Wed Mar 18","t":"5:30 PM – 8:30 PM","l":"Equipment Room, 1101 Music Ln, Austin, TX 78704, USA","ds":"","c":"Music & Nightlife","f":"Free","u":"https://luma.com/7dfeprc1"},{"n":"All In Live SXSW Startup Founder Event","d":"TBD","t":"","l":"Austin, TX","ds":"Startup founder event during SXSW","c":"Startups & VC","f":"Free","u":"https://allinaustin.com/"},{"n":"ATX Austin Texas Music Fest during SXSW Week","d":"TBD","t":"","l":"Austin, TX","ds":"Music festival during SXSW week","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/atx-austin-texas-music-fest-during-sxsw-week-tickets-1981818440304"},{"n":"Fader Fort 2026","d":"TBD","t":"","l":"Austin, TX","ds":"The Fader's annual SXSW music event","c":"Music & Nightlife","f":"Free","u":"https://rsvpatx.com"},{"n":"Paul O'Brien Office Hours/Mentoring","d":"TBD","t":"","l":"Hilton","ds":"Office hours and mentoring sessions with Paul O'Brien during SXSW.","c":"Startups & VC","f":"Free","u":"https://schedule.sxsw.com/events/PP1149372"},{"n":"POLAND at SXSW Innovation Showcase","d":"TBD","t":"","l":"","ds":"Poland innovation showcase at SXSW.","c":"International & Country Houses","f":"Free","u":"https://www.eventbrite.com/e/poland-at-sxsw-innovation-showcase-tickets-1984139549805"},{"n":"Redbreast Unhidden Bar during SXSW 2026","d":"TBD","t":"","l":"Austin, TX","ds":"Redbreast Whiskey pop-up bar experience during SXSW","c":"Food, Drink & Culinary","f":"Free","u":"https://redbreastwhiskey.com/en-us/redbreast-unhiddensxsw/"},{"n":"Roadrunnin on Aisle 5","d":"TBD","t":"","l":"Austin, TX","ds":"Music event during SXSW week","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/rrwxsw-2026-tickets-1981804870717"},{"n":"Shaping Digital Futures: Work, Life, and Connection in a Tech-Driven World","d":"TBD","t":"","l":"","ds":"Event exploring digital futures in work, life, and connection.","c":"AI & Emerging Tech","f":"Free","u":"https://www.eventbrite.com/e/shaping-digital-futures-work-life-and-connection-in-a-tech-driven-world-tickets-1983914114522"},{"n":"Speak Your Truth Transformational Storytelling @ SXSW","d":"TBD","t":"","l":"","ds":"Transformational storytelling event at SXSW.","c":"Film, Media & Journalism","f":"Free","u":"https://www.eventbrite.com/e/speak-your-truth-transformational-storytelling-sxsw-tickets-1984494537583"},{"n":"The Public House for the Future at SXSW Innovation","d":"TBD","t":"","l":"","ds":"Public House activation at SXSW Innovation.","c":"Art, Culture & Community","f":"Free","u":"https://www.eventbrite.com/e/the-public-house-for-the-future-at-sxsw-innovation-tickets-1983964769031"},{"n":"The We Outside Stage Live From Austin Texas","d":"TBD","t":"","l":"Austin, TX","ds":"Live music stage event during SXSW","c":"Music & Nightlife","f":"Free","u":"https://www.eventbrite.com/e/the-we-outside-stage-live-from-austin-texas-tickets-1980047672891"},{"n":"VC Austin Hub Launch","d":"TBD","t":"","l":"","ds":"Launch event for VC Austin Hub.","c":"Startups & VC","f":"Free","u":"https://www.eventbrite.com/e/vc-austin-hub-launch-tickets-1982359462516"},{"n":"Willpower Wellness House","d":"TBD","t":"","l":"Austin, TX","ds":"Health and wellness networking house during SXSW","c":"Wellness & Healthtech","f":"Free","u":"https://luma.com/WellnessHouse"}]);
+</script>
+</body>
+</html>
