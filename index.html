@@ -879,7 +879,7 @@ function render() {
     const style = CAT_STYLES[e.c] || CAT_STYLES['Networking & Happy Hours'];
     const costClass = getCostClass(e.f);
     const freeLabel = e.f || '';
-    const rsvpLink = e.u ? `<a class="card-rsvp" href="${e.u}" target="_blank" rel="noopener">RSVP &rarr;</a>` : '';
+    const rsvpLink = e.u ? `<a class="card-rsvp" href="${e.u}" target="_blank" rel="noopener" onclick="exitSavedView()">RSVP &rarr;</a>` : '';
     const eid = getEventId(e);
     const isSaved = savedEvents.has(eid);
 
@@ -932,6 +932,14 @@ function toggleSavedFilter() {
   showSavedOnly = !showSavedOnly;
   document.getElementById('savedToggle').classList.toggle('active', showSavedOnly);
   render();
+}
+
+function exitSavedView() {
+  if (showSavedOnly) {
+    showSavedOnly = false;
+    document.getElementById('savedToggle').classList.remove('active');
+    render();
+  }
 }
 
 function shareEvent(eid) {
