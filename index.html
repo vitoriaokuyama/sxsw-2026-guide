@@ -487,6 +487,58 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
+.shared-banner {
+  max-width: 1200px;
+  margin: 16px auto;
+  padding: 12px 24px;
+  background: #1a1a2e;
+  border: 1.5px solid var(--accent);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.shared-banner-text {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.shared-banner-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.shared-banner-btn {
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+  touch-action: manipulation;
+}
+
+.btn-save-all {
+  background: var(--accent);
+  border: none;
+  color: #000;
+}
+
+.btn-save-all:hover { opacity: 0.85; }
+
+.btn-start-fresh {
+  background: transparent;
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+}
+
+.btn-start-fresh:hover { border-color: var(--accent); color: var(--text); }
+
 .card-rsvp {
   padding: 8px 20px;
   background: var(--accent);
@@ -558,9 +610,17 @@ body {
   </div>
 </div>
 
+<div id="sharedBanner" class="shared-banner" style="display:none">
+  <span class="shared-banner-text" id="sharedBannerText"></span>
+  <div class="shared-banner-actions">
+    <button class="shared-banner-btn btn-save-all" onclick="saveSharedToMine()">Save these to My List</button>
+    <button class="shared-banner-btn btn-start-fresh" onclick="exitSharedView()">View My List</button>
+  </div>
+</div>
+
 <div class="share-bar">
-  <button class="saved-toggle" id="savedToggle" onclick="toggleSavedFilter()">&#10084; Saved <span id="savedCount">(0)</span></button>
-  <button class="share-btn" id="shareBtn" onclick="shareMyPicks()">Share my picks</button>
+  <button class="saved-toggle" id="savedToggle" onclick="toggleSavedFilter()">&#10084; My Saved <span id="savedCount">(0)</span></button>
+  <button class="share-btn" id="shareBtn" onclick="shareMyPicks()">Share My List</button>
 </div>
 
 <div class="results-info" id="resultsInfo"></div>
@@ -912,18 +972,56 @@ function showToast(msg) {
 }
 
 // ─── Load shared picks from URL ────────────────────────
+let viewingShared = false;
+let sharedPicks = new Set();
+
 function loadSharedPicks() {
   const params = new URLSearchParams(window.location.search);
   const picks = params.get('picks');
   if (picks) {
-    const ids = new Set(picks.split(','));
-    savedEvents = ids;
-    localStorage.setItem('sxsw_saved', JSON.stringify([...savedEvents]));
+    sharedPicks = new Set(picks.split(','));
+    viewingShared = true;
     showSavedOnly = true;
+
+    // Temporarily show shared picks without overwriting user's saved events
+    const mySaved = savedEvents;
+    savedEvents = new Set(sharedPicks);
+
+    const count = sharedPicks.size;
+    document.getElementById('sharedBanner').style.display = 'flex';
+    document.getElementById('sharedBannerText').textContent = `You're viewing a shared list (${count} event${count !== 1 ? 's' : ''})`;
     document.getElementById('savedToggle').classList.add('active');
     updateSavedCount();
-    showToast("Viewing someone's picks!");
+
+    // Store user's own saves separately
+    window._mySavedBackup = mySaved;
   }
+}
+
+function saveSharedToMine() {
+  // Merge shared picks into user's own saved list
+  const mySaved = window._mySavedBackup || new Set();
+  sharedPicks.forEach(id => mySaved.add(id));
+  savedEvents = mySaved;
+  localStorage.setItem('sxsw_saved', JSON.stringify([...savedEvents]));
+  viewingShared = false;
+  document.getElementById('sharedBanner').style.display = 'none';
+  updateSavedCount();
+  render();
+  showToast('Events added to your list!');
+  history.replaceState(null, '', window.location.pathname);
+}
+
+function exitSharedView() {
+  // Go back to user's own saved events
+  savedEvents = window._mySavedBackup || new Set(JSON.parse(localStorage.getItem('sxsw_saved') || '[]'));
+  viewingShared = false;
+  showSavedOnly = savedEvents.size > 0;
+  document.getElementById('sharedBanner').style.display = 'none';
+  document.getElementById('savedToggle').classList.toggle('active', showSavedOnly);
+  updateSavedCount();
+  render();
+  history.replaceState(null, '', window.location.pathname);
 }
 
 // Search
