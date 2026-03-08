@@ -488,23 +488,25 @@ body {
 }
 
 .shared-banner {
-  max-width: 1200px;
-  margin: 16px auto;
-  padding: 12px 24px;
-  background: #1a1a2e;
-  border: 1.5px solid var(--accent);
-  border-radius: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  max-width: 100%;
+  margin: 0;
+  padding: 14px 24px;
+  background: #111;
+  border-bottom: 2px solid var(--accent);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
 }
 
 .shared-banner-text {
   color: var(--accent);
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: 1rem;
 }
 
 .shared-banner-actions {
@@ -613,8 +615,8 @@ body {
 <div id="sharedBanner" class="shared-banner" style="display:none">
   <span class="shared-banner-text" id="sharedBannerText"></span>
   <div class="shared-banner-actions">
-    <button class="shared-banner-btn btn-save-all" onclick="saveSharedToMine()">Save these to My List</button>
-    <button class="shared-banner-btn btn-start-fresh" onclick="exitSharedView()">View My List</button>
+    <button class="shared-banner-btn btn-save-all" onclick="saveSharedToMine()">Save All to My List</button>
+    <button class="shared-banner-btn btn-start-fresh" onclick="exitSharedView()">Exit &amp; Browse All Events</button>
   </div>
 </div>
 
@@ -863,7 +865,7 @@ function render() {
   const info = document.getElementById('resultsInfo');
 
   if (viewingShared) {
-    info.innerHTML = `Viewing <span>${filtered.length}</span> shared event${filtered.length !== 1 ? 's' : ''}`;
+    info.innerHTML = `Friend's list: <span>${filtered.length}</span> event${filtered.length !== 1 ? 's' : ''} — tap "+ My List" to save any to yours`;
   } else if (showSavedOnly) {
     info.innerHTML = `Your saved events: <span>${filtered.length}</span>`;
   } else {
@@ -882,11 +884,22 @@ function render() {
     const rsvpLink = e.u ? `<a class="card-rsvp" href="${e.u}" target="_blank" rel="noopener" onclick="exitSavedView()">RSVP &rarr;</a>` : '';
     const eid = getEventId(e);
     const isSaved = savedEvents.has(eid);
+    const myBackup = window._mySavedBackup || new Set();
+    const alreadyInMyList = viewingShared && myBackup.has(eid);
+
+    let actionBtns;
+    if (viewingShared) {
+      actionBtns = alreadyInMyList
+        ? `<button class="card-save saved" disabled>In My List &#10003;</button>`
+        : `<button class="card-save" onclick="addOneToMyList('${eid}', this)">+ My List</button>`;
+    } else {
+      actionBtns = `<button class="card-share" onclick="shareEvent('${eid}')">Share</button><button class="card-save ${isSaved ? 'saved' : ''}" onclick="toggleSave('${eid}', this)">${isSaved ? 'Saved &#10084;' : 'Save &#9825;'}</button>`;
+    }
 
     return `<div class="card">
       <div class="card-top-row">
         <span class="card-badge" style="background:${style.bg};color:${style.fg};border:1px solid ${style.border || style.bg}">${esc(e.c)}</span>
-        <span style="display:flex;gap:6px"><button class="card-share" onclick="shareEvent('${eid}')">Share</button><button class="card-save ${isSaved ? 'saved' : ''}" onclick="toggleSave('${eid}', this)">${isSaved ? 'Saved &#10084;' : 'Save &#9825;'}</button></span>
+        <span style="display:flex;gap:6px">${actionBtns}</span>
       </div>
       <div class="card-header">
         <div class="card-title">${esc(e.n)}</div>
@@ -940,6 +953,16 @@ function exitSavedView() {
     document.getElementById('savedToggle').classList.remove('active');
     render();
   }
+}
+
+function addOneToMyList(eid, btn) {
+  if (!window._mySavedBackup) window._mySavedBackup = new Set();
+  window._mySavedBackup.add(eid);
+  localStorage.setItem('sxsw_saved', JSON.stringify([...window._mySavedBackup]));
+  btn.classList.add('saved');
+  btn.innerHTML = 'In My List &#10003;';
+  btn.disabled = true;
+  showToast('Event added to your list!');
 }
 
 function shareEvent(eid) {
@@ -1006,7 +1029,7 @@ function loadSharedPicks() {
 
     const count = sharedPicks.size;
     document.getElementById('sharedBanner').style.display = 'flex';
-    document.getElementById('sharedBannerText').textContent = `You're viewing someone's shared list (${count} event${count !== 1 ? 's' : ''})`;
+    document.getElementById('sharedBannerText').innerHTML = `&#128228; A friend shared ${count} event${count !== 1 ? 's' : ''} with you — this is NOT your list`;
     document.getElementById('savedToggle').style.display = 'none';
     document.getElementById('shareBtn').style.display = 'none';
     updateSavedCount();
