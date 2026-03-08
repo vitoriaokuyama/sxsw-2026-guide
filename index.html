@@ -862,7 +862,13 @@ function render() {
   const grid = document.getElementById('grid');
   const info = document.getElementById('resultsInfo');
 
-  info.innerHTML = `Showing <span>${filtered.length}</span> of ${EVENTS.length} events`;
+  if (viewingShared) {
+    info.innerHTML = `Viewing <span>${filtered.length}</span> shared event${filtered.length !== 1 ? 's' : ''}`;
+  } else if (showSavedOnly) {
+    info.innerHTML = `Your saved events: <span>${filtered.length}</span>`;
+  } else {
+    info.innerHTML = `Showing <span>${filtered.length}</span> of ${EVENTS.length} events`;
+  }
 
   if (filtered.length === 0) {
     grid.innerHTML = `<div class="empty"><div class="empty-icon">&#128533;</div><div class="empty-text">No events match your filters</div></div>`;
@@ -992,8 +998,9 @@ function loadSharedPicks() {
 
     const count = sharedPicks.size;
     document.getElementById('sharedBanner').style.display = 'flex';
-    document.getElementById('sharedBannerText').textContent = `You're viewing a shared list (${count} event${count !== 1 ? 's' : ''})`;
-    document.getElementById('savedToggle').classList.add('active');
+    document.getElementById('sharedBannerText').textContent = `You're viewing someone's shared list (${count} event${count !== 1 ? 's' : ''})`;
+    document.getElementById('savedToggle').style.display = 'none';
+    document.getElementById('shareBtn').style.display = 'none';
     updateSavedCount();
 
     // Store user's own saves separately
@@ -1001,14 +1008,21 @@ function loadSharedPicks() {
   }
 }
 
+function restoreShareBar() {
+  document.getElementById('sharedBanner').style.display = 'none';
+  document.getElementById('savedToggle').style.display = '';
+  document.getElementById('shareBtn').style.display = '';
+}
+
 function saveSharedToMine() {
-  // Merge shared picks into user's own saved list
   const mySaved = window._mySavedBackup || new Set();
   sharedPicks.forEach(id => mySaved.add(id));
   savedEvents = mySaved;
   localStorage.setItem('sxsw_saved', JSON.stringify([...savedEvents]));
   viewingShared = false;
-  document.getElementById('sharedBanner').style.display = 'none';
+  showSavedOnly = true;
+  restoreShareBar();
+  document.getElementById('savedToggle').classList.add('active');
   updateSavedCount();
   render();
   showToast('Events added to your list!');
@@ -1016,12 +1030,11 @@ function saveSharedToMine() {
 }
 
 function exitSharedView() {
-  // Go back to user's own saved events
   savedEvents = window._mySavedBackup || new Set(JSON.parse(localStorage.getItem('sxsw_saved') || '[]'));
   viewingShared = false;
-  showSavedOnly = savedEvents.size > 0;
-  document.getElementById('sharedBanner').style.display = 'none';
-  document.getElementById('savedToggle').classList.toggle('active', showSavedOnly);
+  showSavedOnly = false;
+  restoreShareBar();
+  document.getElementById('savedToggle').classList.remove('active');
   updateSavedCount();
   render();
   history.replaceState(null, '', window.location.pathname);
