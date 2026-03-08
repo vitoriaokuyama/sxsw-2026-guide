@@ -950,18 +950,21 @@ function shareMyPicks() {
   }
   const ids = [...savedEvents].join(',');
   const url = window.location.origin + window.location.pathname + '?picks=' + encodeURIComponent(ids);
-  navigator.clipboard.writeText(url).then(() => {
-    showToast('Link copied! Share it with your friends');
-  }).catch(() => {
-    // Fallback
-    const ta = document.createElement('textarea');
-    ta.value = url;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    showToast('Link copied! Share it with your friends');
-  });
+  if (navigator.share) {
+    navigator.share({ title: 'My SXSW 2026 Picks', text: `Check out my ${savedEvents.size} saved SXSW events!`, url: url }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(url).then(() => {
+      showToast('Link copied! Share it with your friends');
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Link copied! Share it with your friends');
+    });
+  }
 }
 
 function showToast(msg) {
