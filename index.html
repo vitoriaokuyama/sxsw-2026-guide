@@ -823,6 +823,7 @@ function buildDayFilters() {
     btn.dataset.day = day.key;
     btn.onclick = () => {
       activeDay = activeDay === day.key ? null : day.key;
+      exitSavedView();
       updateDayButtons();
       render();
     };
@@ -892,6 +893,7 @@ function buildCatFilters() {
       } else {
         activeCats.add(cat);
       }
+      exitSavedView();
       updateCatButtons();
       render();
     };
@@ -933,6 +935,7 @@ function buildCostFilters() {
     btn.dataset.cost = g.key;
     btn.onclick = () => {
       activeCost = activeCost === g.key ? null : g.key;
+      exitSavedView();
       updateCostButtons();
       render();
     };
